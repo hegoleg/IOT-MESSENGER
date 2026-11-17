@@ -14,6 +14,7 @@
 
 - сайт: https://hegoleg.github.io/IOT-MESSENGER/
 - приложение (PWA): https://hegoleg.github.io/IOT-MESSENGER/app/
+- концепт нового лендинга: https://hegoleg.github.io/IOT-MESSENGER/preview/
 - альтернативный хостинг: https://brilliant-kashata-2a9cd6.netlify.app/
 
 ## Архитектура
