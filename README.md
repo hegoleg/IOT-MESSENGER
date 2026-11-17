@@ -180,6 +180,120 @@ server {
 PWA и Web Serial требуют HTTPS (или `localhost`). Домен, DNS, сертификаты и
 хостинг в репозиторий не входят.
 
+## Работа с двух ПК
+
+### Код: GitHub (рекомендуется)
+
+На первом ПК репозиторий уже связан с GitHub (`origin`). На втором:
+
+```bash
+git clone https://github.com/hegoleg/IOT-MESSENGER.git iot-project
+cd iot-project
+npm install
+npm run build
+npm test
+```
+
+Рабочий цикл на обоих ПК:
+
+```bash
+git pull --rebase
+# ... изменения ...
+git add -A
+git commit -m "что изменено"
+git push
+```
+
+Для параллельной работы над разными частями создавайте ветки
+(`git switch -c feature/site`) и сливайте через pull request — так проще
+избежать конфликтов. Перед пушем всегда делайте `git pull --rebase`.
+
+Секреты в Git не попадают. На каждом ПК создайте свои:
+
+```bash
+cp server/.env.example server/.env
+cp web-app/.env.example web-app/.env          # необязательно
+cp firmware/examples/greenhouse/include/secrets.h.example \
+   firmware/examples/greenhouse/include/secrets.h
+```
+
+Файлы `.env` и `secrets.h` переносите вручную или через менеджер паролей.
+
+### Код: локальный Git без интернета
+
+Если GitHub недоступен, сделайте bare-репозиторий на общем диске/папке.
+
+На ПК №1:
+
+```powershell
+# папку C:\iot-sync расшарьте по сети с правом записи
+git init --bare C:\iot-sync\IOT-MESSENGER.git
+cd D:\iot-project
+git remote add lan C:\iot-sync\IOT-MESSENGER.git
+git push lan main
+```
+
+На ПК №2:
+
+```powershell
+git clone \\PC1\iot-sync\IOT-MESSENGER.git iot-project
+cd iot-project
+npm install
+```
+
+Если Git не понимает UNC-путь, подключите сетевую папку как диск:
+
+```powershell
+net use Z: \\PC1\iot-sync /persistent:yes
+git clone Z:\IOT-MESSENGER.git iot-project
+```
+
+Дальше — обычные `git pull lan main` и `git push lan main`. Это тот же Git,
+только вместо GitHub — папка в локальной сети. Не открывайте один и тот же
+рабочий каталог на двух ПК одновременно.
+
+### Что не синхронизировать
+
+Не кладите в Git, OneDrive, Dropbox или Syncthing рабочие каталоги целиком:
+
+- `.env`, `secrets.h` — только вручную/менеджер паролей;
+- `node_modules` — на каждом ПК `npm install`;
+- `.pio`, `dist` — пересобираются;
+- SQLite-базу `server/data/*.db` — она живёт на одном релее.
+
+OneDrive/Syncthing на живой папке с `.git` и `node_modules` приводят к
+конфликтам и битым индексам. Для кода используйте Git, для секретов —
+менеджер паролей.
+
+### Один релей на двоих
+
+Чтобы видеть общую историю и устройства, релей должен быть один:
+
+```
+ПК №1: npm run dev            → http://192.168.1.10:8080
+ПК №2: PWA → релей ws://192.168.1.10:8080
+телефон → тот же адрес
+```
+
+- IP ПК №1 смотрите через `ipconfig` (IPv4), порт 8080 должен быть открыт в
+  брандмауэре:
+
+  ```powershell
+  # PowerShell от имени администратора
+  New-NetFirewallRule -DisplayName "IoT-Messenger relay" `
+    -Direction Inbound -Protocol TCP -LocalPort 8080 -Action Allow
+  ```
+
+- В PWA адрес меняется в настройках (шестерёнка) или в мастере настройки.
+  Если PWA запущена на ПК №2, её адрес по умолчанию указывает на ПК №2 —
+  поставьте IP ПК №1.
+- QR из браузерной прошивки уже содержит адрес релея.
+- История сообщений общая — она в SQLite на ПК №1. Список устройств хранится
+  в браузере каждого ПК отдельно, токен добавляется на каждом устройстве
+  (удобнее по QR).
+- Не запускайте два релея с разными базами, если нужна общая история: это
+  будут два независимых сервера.
+
 ## Текущие ограничения
 
 - Прошивка из браузера и USB-настройка реализованы, но **не проверены на
