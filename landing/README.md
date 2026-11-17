@@ -39,14 +39,17 @@ npm run preview:landing  # предпросмотр сборки
 `[data-app-link]` в `index.html`.
 
 Для единого деплоя используйте `npm run build:site`: скрипт собирает лендинг
-и PWA с `APP_BASE=/app/`, затем копирует PWA в `landing/dist/app`. Манифест
-PWA получает `start_url` и `scope` `/app/`, service worker регистрируется в
-этой же папке.
+и PWA и копирует PWA в `landing/dist/app`. База PWA задаётся через
+`SITE_BASE`:
 
-Для автоматического превью используется Netlify: `netlify.toml` в корне
-задаёт `npm run build:site` и `landing/dist`. Подключите репозиторий в
-Netlify — каждый push в `main` обновит основной сайт и PWA, а pull request
-получит отдельный Deploy Preview.
+- `npm run build:site` → PWA по `/app/` (Netlify, свой домен в корне);
+- `SITE_BASE=/IOT-MESSENGER/ npm run build:site` → PWA по
+  `/IOT-MESSENGER/app/` (GitHub Pages в подпапке).
+
+Для GitHub Pages workflow `.github/workflows/deploy-pages.yml` собирает сайт
+с нужным `SITE_BASE` и публикует при пуше в `main`. Для Netlify `netlify.toml`
+делает сборку без `SITE_BASE`; он также удобен для Deploy Preview в pull
+request.
 
 ## Установка приложения
 

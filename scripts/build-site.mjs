@@ -9,6 +9,8 @@ import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const npmCli = process.env.npm_execpath;
+const siteBase = `${(process.env.SITE_BASE || "/").replace(/\/+$/, "")}/`;
+const appBase = `${siteBase}app/`;
 
 function run(args, env = {}) {
   const command = npmCli ? process.execPath : "npm";
@@ -24,10 +26,11 @@ function run(args, env = {}) {
 
 run(["run", "build", "--workspace", "@iot/shared"]);
 run(["run", "build:landing"]);
-run(["run", "build", "--workspace", "@iot/web-app"], { APP_BASE: "/app/" });
+run(["run", "build", "--workspace", "@iot/web-app"], { APP_BASE: appBase });
 
 const target = join(root, "landing", "dist", "app");
 rmSync(target, { recursive: true, force: true });
 cpSync(join(root, "web-app", "dist"), target, { recursive: true });
 
 console.log("PWA copied to landing/dist/app");
+console.log(`PWA base: ${appBase}`);

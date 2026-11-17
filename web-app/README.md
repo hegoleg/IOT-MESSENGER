@@ -43,6 +43,13 @@ npm test
 npm run preview
 ```
 
+## Деплой
+
+- Лендинг + PWA в корне: `npm run build:site` → PWA по `/app/`.
+- GitHub Pages в подпапке: `SITE_BASE=/IOT-MESSENGER/ npm run build:site`
+  → PWA по `/IOT-MESSENGER/app/`.
+- Публичный workflow: `.github/workflows/deploy-pages.yml`.
+
 По умолчанию клиент подключается к тому же домену, где он размещён
 (`ws(s)://<host>`); на локальных Vite-портах 5173/4173 используется
 `ws://<host>:8080`. Значение можно переопределить через `VITE_SERVER_URL`.

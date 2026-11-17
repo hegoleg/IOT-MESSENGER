@@ -10,6 +10,12 @@
 - **Клиент:** React 19, Vite, TypeScript, Tailwind CSS, PWA.
 - **Сайт:** статический лендинг + прошивка через Web Serial.
 
+Живые адреса:
+
+- сайт: https://hegoleg.github.io/IOT-MESSENGER/
+- приложение (PWA): https://hegoleg.github.io/IOT-MESSENGER/app/
+- альтернативный хостинг: https://brilliant-kashata-2a9cd6.netlify.app/
+
 ## Архитектура
 
 ```
@@ -156,9 +162,16 @@ npm run firmware:export
 - `/api/*` и `/ws` — Node-релей (`server/dist/index.js`, порт 8080).
 
 Для деплоя одним сайтом есть `npm run build:site`: он собирает лендинг и PWA
-с `APP_BASE=/app/` и копирует PWA в `landing/dist/app`. `netlify.toml`
-использует эту команду, поэтому после деплоя сайт и приложение работают на
-одном домене.
+и копирует PWA в `landing/dist/app`. База PWA задаётся через `SITE_BASE`:
+
+- GitHub Pages: `SITE_BASE=/IOT-MESSENGER/` → PWA живёт по
+  `/IOT-MESSENGER/app/`;
+- Netlify или свой домен в корне: без `SITE_BASE` → PWA по `/app/`.
+
+GitHub Pages публикуется workflow `.github/workflows/deploy-pages.yml` при
+пуше в `main`. `netlify.toml` делает ту же сборку для Netlify (без
+`SITE_BASE`). Релей (`/api`, `/ws`) на GitHub Pages не размещается — его
+адрес указывается в приложении или передаётся в QR при прошивке.
 
 Либо PWA на отдельном поддомене (`app.example.com`) — тогда укажите адрес в
 `data-app-url` у ссылок `[data-app-link]` в `landing/index.html` или
@@ -318,11 +331,23 @@ New-NetFirewallRule -DisplayName "IoT-Messenger landing" `
 
 Это живой предпросмотр: правки видны до коммита.
 
-### После пуша — Netlify Deploy Preview
+### После пуша — GitHub Pages
 
-Репозиторий приватный, а GitHub Pages для приватных репозиториев доступен
-только на платных тарифах. Поэтому для автоматического предпросмотра добавлен
-`netlify.toml` (Netlify бесплатно собирает и приватные репозитории):
+Репозиторий публичный, поэтому GitHub Pages работает на бесплатном тарифе.
+Workflow `.github/workflows/deploy-pages.yml` собирает `landing/` и PWA
+(`SITE_BASE=/IOT-MESSENGER/`) и публикует их при каждом пуше в `main`.
+
+- сайт: https://hegoleg.github.io/IOT-MESSENGER/
+- приложение: https://hegoleg.github.io/IOT-MESSENGER/app/
+
+Обновление занимает минуту-две. Для pull request GitHub Pages сам по себе
+preview не делает — используйте Netlify (ниже) или LAN-предпросмотр.
+
+### Netlify — альтернатива и preview для PR
+
+`netlify.toml` собирает тот же сайт и PWA, но в корне (`/app/`). Netlify
+бесплатно работает с приватными и публичными репозиториями и умеет
+показывать **Deploy Preview** для pull request.
 
 - build command: `npm run build:site`
 - publish: `landing/dist`
@@ -340,9 +365,9 @@ New-NetFirewallRule -DisplayName "IoT-Messenger landing" `
 output directory `landing/dist`; приватные репозитории и preview-деплои там
 тоже поддерживаются.
 
-После деплоя PWA доступна по `/app/` на том же домене и устанавливается с
-телефона. Если хотите отдельный поддомен для приложения — задайте его в
-`data-app-url` у ссылок `[data-app-link]`.
+PWA доступна по `/app/` (Netlify) или `/IOT-MESSENGER/app/` (Pages) и
+устанавливается с телефона. Если хотите отдельный поддомен для приложения —
+задайте его в `data-app-url` у ссылок `[data-app-link]`.
 
 ### На своём ПК
 
