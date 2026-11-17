@@ -16,10 +16,10 @@ export default function AppHeader({ mode, onModeChange, onOpenSettings }: AppHea
           <RadioTower className="size-4" strokeWidth={2} />
         </div>
         <div className="min-w-0">
-          <h1 className="truncate font-mono text-[12px] font-bold uppercase tracking-[0.18em] text-zinc-100">
-            IoT Messenger
+          <h1 className="truncate font-sans text-[15px] font-semibold leading-none tracking-[-0.03em] text-zinc-100">
+            IoT Messenger <span className="text-accent-400">↗</span>
           </h1>
-          <p className="mt-0.5 truncate font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500">
+          <p className="mt-1 truncate font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500">
             relay client / v1
           </p>
         </div>

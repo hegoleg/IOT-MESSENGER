@@ -59,10 +59,10 @@ export default function DeviceList({
     <section className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className="shrink-0 px-4 pb-3 pt-4">
         <div className="flex items-baseline gap-2">
-          <h2 className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-zinc-300">
+          <h2 className="font-sans text-[24px] font-semibold leading-none tracking-[-0.04em] text-zinc-100">
             Устройства
           </h2>
-          <span className="font-mono text-[10px] tabular-nums text-accent-400">
+          <span className="font-mono text-[11px] tabular-nums text-accent-400">
             [{String(devices.length).padStart(2, "0")}]
           </span>
         </div>
@@ -103,7 +103,7 @@ export default function DeviceList({
             <div className="flex size-12 items-center justify-center border border-white/10 bg-ink-950 text-accent-400">
               <CircuitBoard className="size-6" strokeWidth={1.6} aria-hidden="true" />
             </div>
-            <p className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-300">
+            <p className="text-[15px] font-semibold tracking-[-0.01em] text-zinc-200">
               Нет устройств
             </p>
             <p className="max-w-[18rem] text-xs leading-relaxed text-zinc-500">
@@ -116,7 +116,7 @@ export default function DeviceList({
             <div className="flex size-11 items-center justify-center border border-white/10 bg-ink-950 text-zinc-500">
               <Search className="size-5" strokeWidth={1.6} aria-hidden="true" />
             </div>
-            <p className="font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-zinc-300">
+            <p className="text-[15px] font-semibold tracking-[-0.01em] text-zinc-200">
               Ничего не найдено
             </p>
             <p className="max-w-[16rem] text-xs leading-relaxed text-zinc-500">

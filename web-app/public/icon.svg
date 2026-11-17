@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="IoT Messenger">
-  <rect width="512" height="512" rx="64" fill="#08090b" />
-  <rect x="32" y="32" width="448" height="448" rx="24" fill="none" stroke="#c9f24d" stroke-opacity="0.35" stroke-width="10" />
-  <circle cx="256" cy="132" r="22" fill="#c9f24d" />
-  <path d="M256 154v44" stroke="#c9f24d" stroke-width="12" stroke-linecap="square" />
-  <rect x="112" y="304" width="64" height="96" fill="#c9f24d" fill-opacity="0.45" />
-  <rect x="224" y="240" width="64" height="160" fill="#c9f24d" fill-opacity="0.7" />
-  <rect x="336" y="176" width="64" height="224" fill="#c9f24d" />
-  <path d="M112 432h288" stroke="#c9f24d" stroke-width="10" stroke-linecap="square" />
+  <rect width="512" height="512" rx="64" fill="#0b0b0a" />
+  <rect x="32" y="32" width="448" height="448" rx="24" fill="none" stroke="#ff5a1f" stroke-opacity="0.35" stroke-width="10" />
+  <circle cx="256" cy="132" r="22" fill="#ff5a1f" />
+  <path d="M256 154v44" stroke="#ff5a1f" stroke-width="12" stroke-linecap="square" />
+  <rect x="112" y="304" width="64" height="96" fill="#ff5a1f" fill-opacity="0.45" />
+  <rect x="224" y="240" width="64" height="160" fill="#ff5a1f" fill-opacity="0.7" />
+  <rect x="336" y="176" width="64" height="224" fill="#ff5a1f" />
+  <path d="M112 432h288" stroke="#ff5a1f" stroke-width="10" stroke-linecap="square" />
 </svg>

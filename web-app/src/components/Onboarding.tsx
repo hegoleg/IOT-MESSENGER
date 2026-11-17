@@ -143,10 +143,10 @@ export default function Onboarding({ defaultServerUrl, onComplete, onSkip }: Onb
         {step === 0 ? (
           <section className="animate-fade-in">
             <p className="mono-label">Шаг 01 — знакомство</p>
-            <h1 className="mt-2 text-[26px] font-semibold leading-tight tracking-tight text-white">
+            <h1 className="mt-2 text-[30px] font-semibold leading-[0.98] tracking-[-0.045em] text-white">
               Настроим ваш
               <br />
-              мессенджер
+              мессенджер<span className="text-accent-400">.</span>
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-zinc-400">
               Плата и телефон будут общаться через ваш собственный релей.

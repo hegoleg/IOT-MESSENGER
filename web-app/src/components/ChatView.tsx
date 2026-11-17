@@ -152,7 +152,7 @@ export default function ChatView({
         </div>
 
         <div className="min-w-0 flex-1">
-          <h2 className="truncate text-[14px] font-semibold leading-tight text-zinc-100">
+          <h2 className="truncate text-[17px] font-semibold leading-tight tracking-[-0.02em] text-zinc-100">
             {device.name}
           </h2>
           <div className="mt-0.5 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-500">

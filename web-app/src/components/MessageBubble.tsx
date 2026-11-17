@@ -10,8 +10,8 @@ export interface MessageBubbleProps {
 }
 
 /**
- * One chat message in the instrument-panel style: device messages are dark
- * panels with a signal-lime edge, user messages are solid lime blocks.
+ * One chat message in the landing's dark-room style: device messages are warm
+ * dark panels with an orange signal, user messages are solid warm-paper blocks.
  */
 export default function MessageBubble({
   message,
@@ -25,8 +25,8 @@ export default function MessageBubble({
   if (isUser) {
     return (
       <div className="flex animate-fade-in justify-end">
-        <div className="min-w-0 max-w-[85%] border border-accent-400 bg-accent-400 px-3 py-2 text-ink-950">
-          <div className="mb-1 flex items-center justify-end gap-2 font-mono text-[9px] uppercase tracking-[0.14em] text-ink-950/60">
+        <div className="min-w-0 max-w-[85%] bg-[#e6dfd0] px-3 py-2 text-[#191612]">
+          <div className="mb-1 flex items-center justify-end gap-2 font-mono text-[9px] uppercase tracking-[0.14em] text-[#74634d]">
             <span>usr</span>
             {time ? (
               <>
@@ -47,11 +47,11 @@ export default function MessageBubble({
     <div className="flex animate-fade-in items-start gap-2">
       <div
         aria-hidden="true"
-        className="mt-0.5 flex size-7 shrink-0 items-center justify-center border border-white/10 bg-ink-900 text-accent-400"
+        className="mt-0.5 flex size-7 shrink-0 items-center justify-center border border-white/10 bg-ink-850 text-accent-400"
       >
         <Cpu className="size-3.5" />
       </div>
-      <div className="min-w-0 max-w-[85%] border border-white/10 border-l-2 border-l-accent-400 bg-ink-900/90 px-3 py-2">
+      <div className="min-w-0 max-w-[85%] bg-[#302c25] px-3 py-2">
         <div className="mb-1 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.14em] text-zinc-500">
           <span className="text-accent-400">dev</span>
           {time ? (
@@ -63,7 +63,7 @@ export default function MessageBubble({
             </>
           ) : null}
         </div>
-        <p className="whitespace-pre-wrap break-words text-[14px] leading-relaxed text-zinc-100">
+        <p className="whitespace-pre-wrap break-words text-[14px] leading-relaxed text-[#f2f0eb]">
           {message.text}
         </p>
         {keyboard ? (

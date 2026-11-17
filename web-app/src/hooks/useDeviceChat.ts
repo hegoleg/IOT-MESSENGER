@@ -89,6 +89,18 @@ function upsertMessage(messages: MsgPacket[], packet: MsgPacket): MsgPacket[] {
 }
 
 /**
+ * The LAN firmware sends ts=0 (the cloud relay normally fills it in). Stamp
+ * such packets with the receive time so day separators and clocks stay sane.
+ * For edits, keep the timestamp of the message being edited.
+ */
+function withTimestamp(messages: MsgPacket[], packet: MsgPacket): MsgPacket {
+  if (packet.ts && packet.ts > 0) return packet;
+
+  const existing = messages.find((item) => item.id === packet.id);
+  return { ...packet, ts: existing?.ts ?? Math.floor(Date.now() / 1000) };
+}
+
+/**
  * Older history goes before live messages. Messages that arrived over the
  * socket while the request was in flight win over their stored copy.
  */
@@ -152,7 +164,7 @@ export function useDeviceChat(options: UseDeviceChatOptions): UseDeviceChatResul
     const unsubscribePacket = connection.onPacket((packet: Packet) => {
       switch (packet.type) {
         case "msg":
-          setMessages((current) => upsertMessage(current, packet));
+          setMessages((current) => upsertMessage(current, withTimestamp(current, packet)));
           break;
         case "status":
           setDeviceOnline(packet.dev_online);

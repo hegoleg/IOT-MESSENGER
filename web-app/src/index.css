@@ -1,21 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;900&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --color-ink-950: #08090b;
-  --color-ink-900: #0d0f12;
-  --color-ink-850: #111418;
-  --color-ink-800: #151a1f;
-  --color-ink-700: #20262d;
-  --color-ink-600: #2c343d;
-  --color-ink-500: #59636f;
+  /* Palette shared with the landing (landing/index.html). */
+  --color-ink-950: #0b0b0a;
+  --color-ink-900: #171613;
+  --color-ink-850: #1b1916;
+  --color-ink-800: #211f1b;
+  --color-ink-700: #292620;
+  --color-ink-600: #302c25;
+  --color-ink-500: #8e8980;
 
-  --color-accent-300: #e4ff9c;
-  --color-accent-400: #c9f24d;
-  --color-accent-500: #a8d63a;
-  --color-accent-600: #7ea827;
+  --color-accent-300: #ff8a5c;
+  --color-accent-400: #ff5a1f;
+  --color-accent-500: #e04a12;
+  --color-accent-600: #b83a0c;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  /* Warm neutrals: every existing text-zinc-* / bg-zinc-* class now matches
+     the dark-room landing instead of Tailwind's cool gray. */
+  --color-zinc-100: #f2f0eb;
+  --color-zinc-200: #e6e1d8;
+  --color-zinc-300: #d4cec3;
+  --color-zinc-400: #b8b4ac;
+  --color-zinc-500: #8e8980;
+  --color-zinc-600: #6f6a61;
+  --color-zinc-700: #55514a;
+  --color-zinc-800: #3a3630;
+  --color-zinc-900: #26231f;
+
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   --font-mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", "SFMono-Regular",
     Menlo, Consolas, monospace;
 }
@@ -33,7 +47,7 @@ html {
 body {
   margin: 0;
   background: var(--color-ink-950);
-  color: #e6e8ea;
+  color: #f2f0eb;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -46,7 +60,7 @@ button {
 
 ::selection {
   background: var(--color-accent-400);
-  color: var(--color-ink-950);
+  color: #100b08;
 }
 
 * {
@@ -67,11 +81,11 @@ button {
   background: transparent;
 }
 
-/* Instrument-panel grid behind the app surface. */
+/* Instrument-panel grid behind the app surface, tinted with the accent. */
 .tech-grid {
   background-image:
-    linear-gradient(to right, rgba(201, 242, 77, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(201, 242, 77, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 90, 31, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 90, 31, 0.045) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
@@ -113,7 +127,7 @@ button {
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 border border-accent-400 bg-accent-400 px-4 font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-ink-950 transition hover:bg-accent-300 active:translate-y-px disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-ink-800 disabled:text-zinc-600;
+    @apply inline-flex items-center justify-center gap-2 border border-accent-400 bg-accent-400 px-4 font-sans text-[13px] font-semibold tracking-[-0.01em] text-ink-950 transition hover:border-accent-300 hover:bg-accent-300 active:translate-y-px disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-ink-800 disabled:text-zinc-600;
   }
 
   .btn-ghost {

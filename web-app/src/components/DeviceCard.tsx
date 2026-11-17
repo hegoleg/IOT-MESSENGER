@@ -117,7 +117,7 @@ export default function DeviceCard({
               />
             </div>
           ) : (
-            <p className="truncate text-[13px] font-medium text-zinc-100">{device.name}</p>
+            <p className="truncate text-[14px] font-medium text-zinc-100">{device.name}</p>
           )}
 
           <p className="mt-0.5 truncate font-mono text-[10px] tracking-tight text-zinc-500">
