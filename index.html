@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IoT Messenger — Telegram-боты для ESP8266 и ESP32 без VPN</title>
+    <meta
+      name="description"
+      content="IoT-Messenger — лёгкий аналог Telegram-ботов для ESP8266 и ESP32. Свой релей, инлайн-кнопки, история сообщений, PWA-клиент. API совместим с FastBot, пакет до 1024 байт."
+    />
+    <meta name="theme-color" content="#f2f0e7" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:title" content="IoT Messenger — мессенджер для ESP8266 и ESP32" />
+    <meta
+      property="og:description"
+      content="Свой релей вместо Telegram Bot API: без VPN, инлайн-кнопки, история в SQLite и PWA-клиент. Миграция с FastBot — замена заголовка и токена."
+    />
+    <link rel="icon" href="./assets/favicon-CChF790r.svg" type="image/svg+xml" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <script type="module" crossorigin src="./assets/index-5FaslXJF.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DunVYdci.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+    <header class="topbar">
+      <a class="brand" href="#top">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="32" height="32">
+            <rect width="32" height="32" fill="#101113" />
+            <rect x="7" y="21" width="4" height="5" fill="#c9f24d" opacity="0.5" />
+            <rect x="14" y="16" width="4" height="10" fill="#c9f24d" opacity="0.75" />
+            <rect x="21" y="10" width="4" height="16" fill="#c9f24d" />
+            <circle cx="23" cy="6" r="2" fill="#c9f24d" />
+          </svg>
+        </span>
+        <span class="brand__text">
+          <strong>IOT MESSENGER</strong>
+          <small>relay client · v1</small>
+        </span>
+      </a>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label="Открыть меню"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav" id="site-nav" aria-label="Основная навигация">
+        <a href="#features">Возможности</a>
+        <a href="#how">Как работает</a>
+        <a href="#flash">Прошивка</a>
+        <a href="#code">Код</a>
+        <a href="#app">Приложение</a>
+        <a href="#faq">FAQ</a>
+        <a class="nav__cta" href="#app">Скачать</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero__copy">
+          <p class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            ESP8266 · ESP32 · WSS · PROTOCOL V1
+          </p>
+
+          <h1 class="hero__title">
+            Мессенджер<br />
+            для вашей платы<span class="accent">.</span>
+          </h1>
+
+          <p class="hero__lead">
+            Telegram-подобные боты для ESP8266 и ESP32 — на вашем сервере, без VPN
+            и чужих API. Инлайн-кнопки, история сообщений и PWA-клиент.
+            Синтаксис совместим с FastBot: меняете заголовок и токен — код
+            продолжает работать.
+          </p>
+
+          <div class="actions">
+            <a class="btn btn--solid" href="#flash">Прошить плату</a>
+            <a class="btn btn--ghost" href="#app">Установить приложение</a>
+          </div>
+
+          <dl class="hero__specs">
+            <div>
+              <dt>Пакет</dt>
+              <dd>≤ 1024 Б</dd>
+            </div>
+            <div>
+              <dt>История</dt>
+              <dd>50 сообщений</dd>
+            </div>
+            <div>
+              <dt>Платформы</dt>
+              <dd>ESP8266 / ESP32</dd>
+            </div>
+            <div>
+              <dt>VPN</dt>
+              <dd>не нужен</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="hero__visual">
+          <div class="terminal" role="img" aria-label="Пример чата с устройством в PWA">
+            <div class="terminal__bar">
+              <span class="terminal__led" aria-hidden="true"></span>
+              <span>RELAY / TEPLITSA</span>
+              <span class="terminal__state">ONLINE</span>
+            </div>
+
+            <div class="terminal__body">
+              <div class="msg msg--dev">
+                <div class="msg__meta">DEV / 15:26</div>
+                <p>Температура в теплице: 24.5°C<br />Влажность: 61%</p>
+                <div class="keys" aria-hidden="true">
+                  <span>Полив вкл</span>
+                  <span>Обновить</span>
+                  <span>Перезагрузить ESP</span>
+                </div>
+              </div>
+
+              <div class="msg msg--usr">
+                <div class="msg__meta">USR / 15:27</div>
+                <p>/status</p>
+              </div>
+
+              <div class="msg msg--dev">
+                <div class="msg__meta">DEV / 15:27</div>
+                <p>Освещённость: 64%<br />Полив: выключен</p>
+              </div>
+            </div>
+
+            <div class="terminal__foot">
+              <span class="terminal__cursor" aria-hidden="true"></span>
+              role=dev · wss · heartbeat 25s
+            </div>
+          </div>
+
+          <span class="hero__badge">FastBot-compatible API</span>
+        </div>
+      </section>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker__track">
+          <span>БЕЗ VPN</span><i>/</i>
+          <span>СВОЙ РЕЛЕЙ</span><i>/</i>
+          <span>ИНЛАЙН-КНОПКИ</span><i>/</i>
+          <span>ИСТОРИЯ В SQLITE</span><i>/</i>
+          <span>PWA-КЛИЕНТ</span><i>/</i>
+          <span>ПАКЕТ 1024 БАЙТА</span><i>/</i>
+          <span>ESP8266 + ESP32</span><i>/</i>
+          <span>БЕЗ VPN</span><i>/</i>
+          <span>СВОЙ РЕЛЕЙ</span><i>/</i>
+          <span>ИНЛАЙН-КНОПКИ</span><i>/</i>
+          <span>ИСТОРИЯ В SQLITE</span><i>/</i>
+          <span>PWA-КЛИЕНТ</span><i>/</i>
+          <span>ПАКЕТ 1024 БАЙТА</span><i>/</i>
+          <span>ESP8266 + ESP32</span><i>/</i>
+        </div>
+      </div>
+
+      <section class="section" id="features">
+        <div class="section__head reveal">
+          <p class="eyebrow">01 / Возможности</p>
+          <h2>Всё, что нужно<br />для IoT-мессенджера</h2>
+          <p class="section__lead">
+            Никаких тяжёлых SDK, облачных подписок и внешних посредников.
+            Только плата, ваш релей и телефон.
+          </p>
+        </div>
+
+        <div class="features">
+          <article class="feature reveal">
+            <span class="feature__num">01</span>
+            <h3>FastBot-совместимый API</h3>
+            <p>
+              <code>IoTBot bot(TOKEN)</code>, <code>attach()</code>,
+              <code>tick()</code>, <code>sendInline()</code>. Миграция с
+              Telegram-ботов — замена заголовка и токена.
+            </p>
+            <code class="feature__snippet">bot.tick(); // неблокирующий</code>
+          </article>
+
+          <article class="feature reveal">
+            <span class="feature__num">02</span>
+            <h3>Облако и локальная сеть</h3>
+            <p>
+              WSS через релей из любой сети или прямое подключение к плате по
+              IP/mDNS на порту 81. Один и тот же JSON-протокол.
+            </p>
+            <code class="feature__snippet">wss://relay/ws · ws://ip:81</code>
+          </article>
+
+          <article class="feature reveal">
+            <span class="feature__num">03</span>
+            <h3>Кнопки и живые сообщения</h3>
+            <p>
+              Инлайн-клавиатура до 3×3, callback_data возвращается на плату.
+              Показания датчиков обновляются через <code>edit: true</code>.
+            </p>
+            <code class="feature__snippet">kb → [[{ t, d }]]</code>
+          </article>
+
+          <article class="feature reveal">
+            <span class="feature__num">04</span>
+            <h3>История в вашей SQLite</h3>
+            <p>
+              Релей хранит последние 50 сообщений на токен и отдаёт их при
+              старте клиента. Данные не уходят третьим сторонам.
+            </p>
+            <code class="feature__snippet">GET /api/v1/history?token=…</code>
+          </article>
+
+          <article class="feature reveal">
+            <span class="feature__num">05</span>
+            <h3>PWA вместо нативного клиента</h3>
+            <p>
+              Мобильное приложение ставится из браузера: список устройств,
+              чат, инлайн-кнопки, quick-команды и офлайн-оболочка.
+            </p>
+            <code class="feature__snippet">React 19 · Vite · Tailwind</code>
+          </article>
+
+          <article class="feature reveal">
+            <span class="feature__num">06</span>
+            <h3>Экономия памяти ESP</h3>
+            <p>
+              Плоский JSON, ArduinoJson v7, статический буфер 1024 байта.
+              Никаких <code>delay()</code> внутри библиотеки.
+            </p>
+            <code class="feature__snippet">RAM: 39% на NodeMCU</code>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--contrast" id="why">
+        <div class="section__head reveal">
+          <p class="eyebrow">02 / Зачем</p>
+          <h2>Свой протокол<br />вместо чужого API</h2>
+          <p class="section__lead">
+            Telegram удобен, но зависит от внешнего сервиса и доступности.
+            IoT-Messenger ставится на ваш сервер и работает по открытому
+            контракту.
+          </p>
+        </div>
+
+        <div class="compare">
+          <div class="compare__col compare__col--muted reveal">
+            <h3>Telegram Bot API</h3>
+            <ul class="marks marks--no">
+              <li>Внешний API и зависимость от доступности</li>
+              <li>В сети без прямого доступа нужен VPN или прокси</li>
+              <li>Ограничения платформы и очереди сообщений</li>
+              <li>Тяжёлые TLS-библиотеки на ESP8266</li>
+            </ul>
+          </div>
+
+          <div class="compare__col compare__col--accent reveal">
+            <h3>IoT-Messenger</h3>
+            <ul class="marks marks--yes">
+              <li>Свой релей на вашем домене и сервере</li>
+              <li>Прямой WSS без посредников</li>
+              <li>Компактный пакет до 1024 байт</li>
+              <li>История и токены в вашей SQLite</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how">
+        <div class="section__head reveal">
+          <p class="eyebrow">03 / Как работает</p>
+          <h2>Три шага<br />до первого сообщения</h2>
+          <p class="section__lead">
+            Релей, прошивка и клиент общаются по единому контракту
+            <code>PROTOCOL.md</code>. Ни одного лишнего сервиса.
+          </p>
+        </div>
+
+        <div class="steps">
+          <article class="step reveal">
+            <span class="step__num">01</span>
+            <h3>Получите токен</h3>
+            <p>
+              Токен — секретный код устройства. Его выдаёт релей одним запросом,
+              и он же вставляется в PWA и <code>secrets.h</code>.
+            </p>
+            <pre><code># Windows: используйте curl.exe
+curl -X POST \
+  http://localhost:8080/api/v1/devices/create
+# → {"token":"..."}</code></pre>
+          </article>
+
+          <article class="step reveal">
+            <span class="step__num">02</span>
+            <h3>Прошейте плату</h3>
+            <p>PlatformIO, secrets.h, токен и адрес релея.</p>
+            <pre><code>cd firmware/examples/greenhouse
+pio run -e nodemcuv2 -t upload</code></pre>
+          </article>
+
+          <article class="step reveal">
+            <span class="step__num">03</span>
+            <h3>Откройте PWA</h3>
+            <p>Добавьте токен по QR или вручную и отправьте /start.</p>
+            <pre><code>npm run dev:web
+# → http://localhost:5173</code></pre>
+          </article>
+        </div>
+
+        <div class="flow reveal" aria-label="Схема обмена сообщениями">
+          <div class="flow__node">
+            <span class="flow__tag">DEV</span>
+            <strong>ESP8266 / ESP32</strong>
+            <small>IoTBot · C++ · ArduinoJson</small>
+          </div>
+          <div class="flow__link">
+            <span>WSS</span>
+            <b aria-hidden="true">→</b>
+          </div>
+          <div class="flow__node flow__node--relay">
+            <span class="flow__tag">RELAY</span>
+            <strong>Fastify + ws</strong>
+            <small>SQLite · история 50 · history API</small>
+          </div>
+          <div class="flow__link">
+            <span>WSS</span>
+            <b aria-hidden="true">→</b>
+          </div>
+          <div class="flow__node">
+            <span class="flow__tag">USR</span>
+            <strong>PWA-клиент</strong>
+            <small>React 19 · Vite · Tailwind</small>
+          </div>
+        </div>
+        <p class="flow__note">
+          LAN-режим: протокол v1 предусматривает прямое подключение клиента к
+          <code>ws://IP:81</code>. Серверная часть на самой ESP — следующий этап
+          прошивки.
+        </p>
+      </section>
+
+      <section class="section" id="flash">
+        <div class="section__head reveal">
+          <p class="eyebrow">04 / Прошивка</p>
+          <h2>Прошейте плату<br />из браузера</h2>
+          <p class="section__lead">
+            Chrome или Edge на компьютере, USB-кабель и плата ESP8266/ESP32.
+            Wi-Fi, релей и токен настраиваются по USB — без PlatformIO и
+            терминала. ESP8266 работает только в сетях 2,4 ГГц, прошивка — с
+            компьютера.
+          </p>
+        </div>
+
+        <div class="flasher">
+          <div class="flasher__panel reveal">
+            <p class="flasher__step">Шаг 01 / Прошивка</p>
+            <h3>Подключите плату по USB</h3>
+            <p>
+              Нажмите «Прошить», выберите порт и дождитесь окончания. Плата
+              перезагрузится в режим настройки.
+            </p>
+            <esp-web-install-button id="flash-installer" manifest="./firmware/manifest.json">
+              <button slot="activate" class="btn btn--solid">Прошить плату</button>
+              <span slot="unsupported" class="flasher__warn">
+                Web Serial недоступен. Откройте сайт в Chrome или Edge на
+                компьютере по HTTPS.
+              </span>
+              <span slot="not-allowed" class="flasher__warn">
+                Разрешите доступ к USB-порту в браузере.
+              </span>
+            </esp-web-install-button>
+            <p class="flasher__note">
+              IoTBot Quickstart · ESP8266 / ESP32 · в диалоге нажмите Install и
+              выберите порт
+            </p>
+          </div>
+
+          <div class="flasher__panel reveal">
+            <p class="flasher__step">Шаг 02 / Настройка</p>
+            <h3>Wi-Fi, релей и токен</h3>
+            <p>
+              Прошили плату? Подключите её по USB — сайт просканирует Wi-Fi
+              сети, создаст токен и сохранит настройки на плате. Закройте окно
+              установки перед подключением.
+            </p>
+
+            <div id="flash-unsupported" class="flasher__warn" hidden>
+              Для настройки по USB нужен Chrome или Edge на компьютере, HTTPS
+              или localhost. Можно прошить вручную по
+              <a href="#quickstart">быстрому старту</a>.
+            </div>
+
+            <div id="flash-controls">
+              <label class="mono-label" for="flash-relay">Адрес релея</label>
+              <div class="flasher__row">
+                <input
+                  id="flash-relay"
+                  class="field"
+                  type="url"
+                  inputmode="url"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="ws://192.168.1.10:8080"
+                />
+                <button type="button" id="flash-check" class="btn btn--ghost">
+                  Проверить
+                </button>
+              </div>
+              <p id="flash-relay-status" class="flasher__status" role="status"></p>
+
+              <div class="flasher__divider"></div>
+
+              <button type="button" id="flash-connect" class="btn btn--solid">
+                Подключиться к плате
+              </button>
+
+              <div id="flash-serial" hidden>
+                <label class="mono-label" for="flash-ssid">Wi-Fi сеть</label>
+                <div class="flasher__row">
+                  <input
+                    id="flash-ssid"
+                    class="field"
+                    list="flash-networks"
+                    autocomplete="off"
+                    placeholder="Выберите сеть или введите SSID"
+                  />
+                  <button type="button" id="flash-scan" class="btn btn--ghost">
+                    Сканировать
+                  </button>
+                </div>
+                <datalist id="flash-networks"></datalist>
+
+                <label class="mono-label" for="flash-password">Пароль Wi-Fi</label>
+                <input
+                  id="flash-password"
+                  class="field"
+                  type="password"
+                  autocomplete="off"
+                  placeholder="Пароль сети"
+                />
+
+                <button type="button" id="flash-configure" class="btn btn--solid">
+                  Создать токен и настроить
+                </button>
+              </div>
+            </div>
+
+            <p id="flash-log" class="flasher__log" role="status"></p>
+
+            <div id="flash-result" class="flasher__result" hidden>
+              <p class="flasher__step">Шаг 03 / Готово</p>
+              <h3>Токен устройства</h3>
+              <p class="flasher__token" id="flash-token-value"></p>
+              <canvas id="flash-qr" width="200" height="200" aria-label="QR-код токена"></canvas>
+              <p class="flasher__muted">
+                Наведите камеру телефона — приложение откроется с токеном. Или
+                отсканируйте QR внутри приложения.
+              </p>
+              <div class="flasher__row">
+                <button type="button" id="flash-copy" class="btn btn--ghost">
+                  Скопировать токен
+                </button>
+                <a class="btn btn--solid" href="./app/" data-app-link data-app-url="">
+                  Открыть приложение
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--dark" id="code">
+        <div class="section__head reveal">
+          <p class="eyebrow">05 / Код</p>
+          <h2>Знакомый синтаксис.<br />Открытый протокол.</h2>
+          <p class="section__lead">
+            Код на плате почти не отличается от FastBot. На проводе — плоский
+            JSON, который легко читать и отлаживать.
+          </p>
+        </div>
+
+        <div class="code-grid">
+          <article class="code-card reveal">
+            <div class="code-card__head">
+              <span>FIRMWARE / C++</span>
+              <button class="copy" type="button" data-copy="code-firmware">
+                Копировать
+              </button>
+            </div>
+            <pre><code id="code-firmware">#include &lt;IoTBot.h&gt;
+
+IoTBot bot(BOT_TOKEN);
+
+void onMessage(IB_msg &amp;msg) {
+  if (msg.isCallback &amp;&amp; msg.data == "pump_on") {
+    bot.editMessage(msg.id, "Полив включён");
+  }
+}
+
+void setup() {
+  bot.setServer(SERVER_HOST);
+  bot.attach(onMessage);
+}
+
+void loop() {
+  bot.tick();  // неблокирующий цикл
+}</code></pre>
+          </article>
+
+          <article class="code-card reveal">
+            <div class="code-card__head">
+              <span>PROTOCOL / JSON</span>
+              <button class="copy" type="button" data-copy="code-json">
+                Копировать
+              </button>
+            </div>
+            <pre><code id="code-json">{
+  "v": 1,
+  "type": "msg",
+  "id": "m_1042",
+  "from": "dev",
+  "ts": 1794905120,
+  "text": "Температура в теплице: 24.5°C",
+  "kb": [[
+    { "t": "Включить полив", "d": "pump_on" },
+    { "t": "Обновить", "d": "status" }
+  ]]
+}</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="quickstart">
+        <div class="section__head reveal">
+          <p class="eyebrow">06 / Быстрый старт</p>
+          <h2>Разверните<br />за один вечер</h2>
+          <p class="section__lead">
+            Ниже — полный путь: от установки до первого сообщения. Писать код
+            не нужно: только команды и четыре строки в <code>secrets.h</code>.
+            Каждый шаг объяснён, а если платы нет — есть симулятор.
+          </p>
+        </div>
+
+        <div class="requirements reveal">
+          <p class="requirements__title">Что понадобится</p>
+          <ul>
+            <li>
+              <strong>Node.js 20+</strong>
+              <span>для релея и PWA</span>
+            </li>
+            <li>
+              <strong>PlatformIO</strong>
+              <span>для прошивки платы</span>
+            </li>
+            <li>
+              <strong>ESP8266 / ESP32</strong>
+              <span>и USB-кабель</span>
+            </li>
+            <li>
+              <strong>Wi-Fi</strong>
+              <span>плата и телефон в одной сети</span>
+            </li>
+          </ul>
+          <p class="requirements__note">
+            Команды выполняются в терминале: PowerShell в Windows, Terminal в
+            macOS/Linux. Копируйте строки по одной и нажимайте Enter.
+          </p>
+        </div>
+
+        <div class="quick">
+          <article class="quick__block reveal">
+            <div class="quick__head">
+              <span>01 / Компьютер или сервер</span>
+              <button class="copy" type="button" data-copy="code-server">
+                Копировать
+              </button>
+            </div>
+            <p class="quick__where">
+              Где: в папке проекта на компьютере с Node.js · два окна терминала
+            </p>
+            <pre><code id="code-server"># 1. один раз: скачать зависимости проекта
+npm install
+
+# 2. окно терминала №1: запустить релей
+npm run dev
+
+# 3. окно терминала №2: запустить PWA
+npm run dev:web
+
+# 4. выдать токен устройству
+# Windows: вместо curl используйте curl.exe
+curl -X POST http://localhost:8080/api/v1/devices/create
+# ответ: {"token":"..."} — скопируйте токен</code></pre>
+            <div class="quick__legend">
+              <dl>
+                <div>
+                  <dt>npm install</dt>
+                  <dd>Скачивает библиотеки проекта. Нужен интернет, выполняется один раз.</dd>
+                </div>
+                <div>
+                  <dt>npm run dev</dt>
+                  <dd>Запускает релей на порту 8080. Окно терминала не закрывайте.</dd>
+                </div>
+                <div>
+                  <dt>npm run dev:web</dt>
+                  <dd>Запускает PWA на порту 5173. Откройте адрес из терминала в браузере.</dd>
+                </div>
+                <div>
+                  <dt>curl …</dt>
+                  <dd>
+                    Создаёт устройство и печатает токен. В Windows вызывайте
+                    <code>curl.exe</code>: PowerShell может подменять
+                    <code>curl</code> своей командой.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+
+          <article class="quick__block reveal">
+            <div class="quick__head">
+              <span>02 / Плата ESP</span>
+              <button class="copy" type="button" data-copy="code-flash">
+                Копировать
+              </button>
+            </div>
+            <p class="quick__where">
+              Где: в папке проекта на компьютере с PlatformIO · плата по USB
+            </p>
+            <pre><code id="code-flash">cd firmware/examples/greenhouse
+cp include/secrets.h.example include/secrets.h
+
+# откройте include/secrets.h и заполните:
+# WIFI_SSID  — имя вашей Wi-Fi сети
+# WIFI_PASS  — пароль Wi-Fi
+# BOT_TOKEN  — токен из шага 4
+# SERVER_HOST — IP компьютера с релеем, например 192.168.1.10
+# SERVER_PORT — 8080
+# SERVER_SECURE — false для локального релея
+
+pio run -e nodemcuv2 -e esp32dev   # проверить сборку
+pio run -e nodemcuv2 -t upload     # прошить ESP8266
+# для ESP32: pio run -e esp32dev -t upload</code></pre>
+            <div class="quick__legend">
+              <dl>
+                <div>
+                  <dt>cd …</dt>
+                  <dd>Переходит в папку с примером прошивки.</dd>
+                </div>
+                <div>
+                  <dt>cp …</dt>
+                  <dd>Создаёт файл настроек. В git он не попадёт — токен останется локальным.</dd>
+                </div>
+                <div>
+                  <dt>secrets.h</dt>
+                  <dd>Ваши Wi-Fi, токен и адрес релея. Важно: не <code>localhost</code>, а IP компьютера.</dd>
+                </div>
+                <div>
+                  <dt>pio run</dt>
+                  <dd>Собирает прошивку. Флаг <code>-t upload</code> сразу загружает её в плату.</dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+        </div>
+
+        <div class="outcome reveal">
+          <p class="outcome__title">Что должно получиться</p>
+          <p>
+            В PWA появилось устройство со статусом «в сети», а на команду
+            <code>/start</code> приходит меню с кнопками. Если нет — проверьте,
+            что релей запущен, телефон и плата в одной Wi-Fi сети, а
+            <code>SERVER_HOST</code> указывает на IP компьютера.
+          </p>
+        </div>
+
+        <div class="quick__note reveal">
+          Нет платы? Запустите <code>npm run sim:esp</code> — симулятор создаст
+          токен и будет отвечать на команды как ESP. Весь сценарий можно
+          проверить ещё до прошивки.
+        </div>
+
+        <dl class="terms reveal">
+          <div>
+            <dt>Релей</dt>
+            <dd>Небольшой сервер, который пересылает сообщения между платой и телефоном.</dd>
+          </div>
+          <div>
+            <dt>Токен</dt>
+            <dd>Секретный код устройства. Он же пароль для входа в PWA.</dd>
+          </div>
+          <div>
+            <dt>Прошивка</dt>
+            <dd>Программа, которую вы загружаете на ESP через USB.</dd>
+          </div>
+          <div>
+            <dt>PWA</dt>
+            <dd>Сайт, который устанавливается на телефон как обычное приложение.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="section" id="specs">
+        <div class="section__head reveal">
+          <p class="eyebrow">07 / Спецификации</p>
+          <h2>Коротко<br />и по делу</h2>
+          <p class="section__lead">
+            Все параметры зафиксированы в <code>PROTOCOL.md</code> и
+            <code>shared/types.ts</code>. Новые поля не появляются в коде без
+            обновления контракта.
+          </p>
+        </div>
+
+        <table class="specs reveal">
+          <tbody>
+            <tr>
+              <th scope="row">Протокол</th>
+              <td>IoT-Messenger v1 · плоский JSON · UTF-8</td>
+            </tr>
+            <tr>
+              <th scope="row">Транспорт</th>
+              <td>WSS через релей · WS локально · HTTP fallback</td>
+            </tr>
+            <tr>
+              <th scope="row">Пакет</th>
+              <td>до 1024 байт · текст до 512 байт</td>
+            </tr>
+            <tr>
+              <th scope="row">Клавиатура</th>
+              <td>инлайн, до 3 рядов × 3 кнопки</td>
+            </tr>
+            <tr>
+              <th scope="row">История</th>
+              <td>50 сообщений на токен в SQLite</td>
+            </tr>
+            <tr>
+              <th scope="row">Heartbeat</th>
+              <td>ping 25 с · pong 5 с · reconnect 3 с</td>
+            </tr>
+            <tr>
+              <th scope="row">Платы</th>
+              <td>ESP8266 (espressif8266) · ESP32 (espressif32)</td>
+            </tr>
+            <tr>
+              <th scope="row">Сервер</th>
+              <td>Node.js 20+ · Fastify 5 · ws · better-sqlite3</td>
+            </tr>
+            <tr>
+              <th scope="row">Клиент</th>
+              <td>React 19 · Vite · TypeScript · Tailwind CSS · PWA</td>
+            </tr>
+            <tr>
+              <th scope="row">API</th>
+              <td>FastBot-совместимый: attach · tick · sendInline · editMessage</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="section__head reveal">
+          <p class="eyebrow">08 / FAQ</p>
+          <h2>Частые<br />вопросы</h2>
+          <p class="section__lead">
+            Коротко о том, что чаще всего спрашивают перед запуском.
+          </p>
+        </div>
+
+        <div class="faq">
+          <details class="reveal">
+            <summary>Нужен ли VPN?</summary>
+            <p>
+              Нет. Вы поднимаете релей на своём сервере и подключаетесь к нему
+              по WSS. Внешние API и посредники не используются.
+            </p>
+          </details>
+
+          <details class="reveal">
+            <summary>Чем это отличается от Telegram-ботов?</summary>
+            <p>
+              Свой протокол и свой сервер. API намеренно повторяет FastBot:
+              <code>IoTBot bot(TOKEN)</code>, <code>attach()</code>,
+              <code>tick()</code>, <code>sendInline()</code>,
+              <code>editMessage()</code>. Миграция — замена заголовка и токена.
+            </p>
+          </details>
+
+          <details class="reveal">
+            <summary>Где хранятся сообщения?</summary>
+            <p>
+              В SQLite на вашем релее: последние 50 сообщений на каждый токен.
+              Клиент загружает историю через
+              <code>GET /api/v1/history?token=…</code>.
+            </p>
+          </details>
+
+          <details class="reveal">
+            <summary>Хватит ли памяти ESP8266?</summary>
+            <p>
+              Да. Пакет ограничен 1024 байтами, текст — 512, JSON-документы
+              переиспользуются, внутри библиотеки нет <code>delay()</code>.
+              Сборка примера занимает около 39% RAM NodeMCU.
+            </p>
+          </details>
+
+          <details class="reveal">
+            <summary>Что делать, если команда не найдена?</summary>
+            <p>
+              Проверьте установку: <code>node -v</code> должен показать версию
+              20 или новее, <code>pio --version</code> — версию PlatformIO.
+              Если команда не найдена, установите Node.js и PlatformIO и
+              откройте терминал заново.
+            </p>
+          </details>
+
+          <details class="reveal">
+            <summary>Почему плата не подключается к релею?</summary>
+            <p>
+              В <code>secrets.h</code> укажите IP компьютера с релеем, а не
+              <code>localhost</code>: плата не понимает localhost. Телефон и
+              плата должны быть в одной Wi-Fi сети, порт 8080 — открыт, а
+              токен — совпадать с тем, что введён в PWA.
+            </p>
+          </details>
+
+          <details class="reveal">
+            <summary>Плата не прошивается. Что проверить?</summary>
+            <p>
+              Нужен кабель с передачей данных (не только зарядка), драйвер
+              CH340/CP210x и правильный порт в PlatformIO. На Windows порт
+              виден в «Диспетчере устройств», на macOS/Linux — в
+              <code>/dev/tty.*</code>.
+            </p>
+          </details>
+
+          <details class="reveal">
+            <summary>Можно ли подключить несколько плат?</summary>
+            <p>
+              Да. У каждого устройства свой токен и отдельная история. В
+              PWA-клиенте они отображаются отдельными чатами.
+            </p>
+          </details>
+
+          <details class="reveal">
+            <summary>Работает ли без интернета?</summary>
+            <p>
+              Протокол предусматривает LAN-режим: клиент подключается напрямую
+              к <code>ws://IP:81</code>. Клиентская часть и контракт готовы;
+              встроенный сервер на ESP — следующий этап прошивки.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section class="section" id="app">
+        <div class="section__head reveal">
+          <p class="eyebrow">09 / Приложение</p>
+          <h2>Установите<br />на телефон</h2>
+          <p class="section__lead">
+            PWA ставится из браузера как обычное приложение. Внутри — мастер
+            настройки релея, создание устройства, чат и инлайн-кнопки.
+          </p>
+        </div>
+
+        <div class="download">
+          <div class="download__panel reveal">
+            <p class="download__label">PWA-КЛИЕНТ</p>
+            <h3>Откройте и добавьте на главный экран</h3>
+            <p class="download__text">
+              Настройка занимает пару минут: укажите адрес релея, проверьте
+              соединение и создайте токен устройства прямо в приложении.
+              Терминал для этого не нужен.
+            </p>
+            <div class="actions">
+              <a class="btn btn--solid" href="./app/" data-app-link>
+                Открыть приложение
+              </a>
+              <a class="btn btn--ghost" href="#quickstart">Нужен сервер?</a>
+            </div>
+            <p class="download__note">
+              Работает в Chrome, Safari и Edge. Установка не обязательна —
+              можно пользоваться прямо в браузере.
+            </p>
+          </div>
+
+          <div class="download__steps reveal">
+            <article class="download__step">
+              <span>Android</span>
+              <p>Chrome → ⋮ → «Установить приложение»</p>
+            </article>
+            <article class="download__step">
+              <span>iPhone / iPad</span>
+              <p>Safari → «Поделиться» → «На экран Домой»</p>
+            </article>
+            <article class="download__step">
+              <span>Компьютер</span>
+              <p>Иконка установки в адресной строке Chrome или Edge</p>
+            </article>
+            <article class="download__step">
+              <span>Без установки</span>
+              <p>Можно пользоваться сразу в браузере — функциональность та же</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta reveal">
+        <p class="eyebrow">Готово к запуску</p>
+        <h2>Свой IoT-мессенджер<br />за один вечер.</h2>
+        <p class="cta__lead">
+          Установите приложение, укажите адрес релея и создайте первое
+          устройство. Без подписок и внешних API.
+        </p>
+        <div class="actions">
+          <a class="btn btn--solid" href="#app">Установить приложение</a>
+          <a class="btn btn--ghost" href="#quickstart">Быстрый старт</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" width="28" height="28">
+              <rect width="32" height="32" fill="#c9f24d" />
+              <rect x="7" y="21" width="4" height="5" fill="#101113" opacity="0.45" />
+              <rect x="14" y="16" width="4" height="10" fill="#101113" opacity="0.7" />
+              <rect x="21" y="10" width="4" height="16" fill="#101113" />
+              <circle cx="23" cy="6" r="2" fill="#101113" />
+            </svg>
+          </span>
+          <p>
+            Мессенджер для ESP8266 и ESP32.<br />
+            Протокол v1 · открытый контракт.
+          </p>
+        </div>
+
+        <nav class="footer__nav" aria-label="Разделы сайта">
+          <h3>Разделы</h3>
+          <a href="#features">Возможности</a>
+          <a href="#how">Как работает</a>
+          <a href="#flash">Прошивка</a>
+          <a href="#app">Приложение</a>
+          <a href="#quickstart">Быстрый старт</a>
+          <a href="#specs">Спецификации</a>
+        </nav>
+
+        <div class="footer__stack">
+          <h3>Стек</h3>
+          <ul>
+            <li>ESP8266 / ESP32 · ArduinoJson 7</li>
+            <li>Node.js · Fastify · ws · SQLite</li>
+            <li>React 19 · Vite · Tailwind CSS</li>
+            <li>WebSocket · WSS · PWA</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© <span id="year"></span> IoT-Messenger</span>
+        <span>Работает на вашем сервере · без внешних API</span>
+      </div>
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/IOT-MESSENGER/app/sw.js', { scope: '/IOT-MESSENGER/app/' })})}
