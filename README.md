@@ -176,6 +176,11 @@ GitHub Pages обновляется workflow `.github/workflows/deploy-gh-pages.
 размещается — его адрес указывается в приложении или передаётся в QR при
 прошивке.
 
+Релей — это режим «как в Telegram»: плата и PWA сами подключаются к нему
+наружу, поэтому публичный IP платы и проброс портов не нужны, а CGNAT не
+мешает. Готовые варианты деплоя — Raspberry Pi + Cloudflare Tunnel,
+VPS + Caddy, Docker — в [`server/DEPLOY.md`](server/DEPLOY.md).
+
 Либо PWA на отдельном поддомене (`app.example.com`) — тогда укажите адрес в
 `data-app-url` у ссылок `[data-app-link]` в `landing/index.html` или
 пересоберите PWA с нужным `base`.

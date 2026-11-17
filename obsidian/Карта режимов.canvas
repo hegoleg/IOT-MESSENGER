@@ -3,19 +3,59 @@
     {
       "id": "title",
       "type": "text",
-      "text": "# ESP — единственный сервер\nРелея нет, кроме CGNAT",
-      "x": 280,
-      "y": -500,
+      "text": "# Три способа подключения\nРелей · LAN · прямой IP",
+      "x": 240,
+      "y": -540,
       "width": 460,
       "height": 120,
       "color": "4"
+    },
+    {
+      "id": "tg-header",
+      "type": "text",
+      "text": "## КАК В TELEGRAM\nРелей — публичный IP платы не нужен",
+      "x": -160,
+      "y": -380,
+      "width": 560,
+      "height": 80,
+      "color": "5"
+    },
+    {
+      "id": "tg-esp",
+      "type": "text",
+      "text": "**ESP / IoTBot**\nисходящее WSS",
+      "x": -160,
+      "y": -240,
+      "width": 220,
+      "height": 120,
+      "color": "5"
+    },
+    {
+      "id": "tg-relay",
+      "type": "file",
+      "file": "03 Сервер.md",
+      "x": 180,
+      "y": -260,
+      "width": 280,
+      "height": 180,
+      "color": "1"
+    },
+    {
+      "id": "tg-phone",
+      "type": "text",
+      "text": "**Телефон / PWA**\nисходящее WSS",
+      "x": 560,
+      "y": -240,
+      "width": 220,
+      "height": 120,
+      "color": "2"
     },
     {
       "id": "lan-header",
       "type": "text",
       "text": "## ОДНА WI-FI\nESP — весь сервер",
       "x": -160,
-      "y": -340,
+      "y": -20,
       "width": 460,
       "height": 80,
       "color": "5"
@@ -25,7 +65,7 @@
       "type": "file",
       "file": "05 PWA.md",
       "x": -160,
-      "y": -220,
+      "y": 100,
       "width": 280,
       "height": 180,
       "color": "2"
@@ -35,89 +75,69 @@
       "type": "file",
       "file": "04 Прошивка.md",
       "x": 300,
-      "y": -220,
+      "y": 100,
       "width": 280,
       "height": 180,
       "color": "5"
     },
     {
-      "id": "lan-note",
+      "id": "direct-header",
       "type": "text",
-      "text": "ESP держит:\n• WebSocket :81\n• token + rate limit\n• ping/pong и status\n• mDNS _iotbot._tcp",
-      "x": 680,
-      "y": -220,
-      "width": 300,
-      "height": 180,
-      "color": "6"
-    },
-    {
-      "id": "wan-header",
-      "type": "text",
-      "text": "## РАЗНЫЕ WI-FI\nESP за роутером — релея нет",
+      "text": "## ПРЯМОЙ ДОСТУП К ESP\nНужен публичный IP и проброс порта",
       "x": -160,
-      "y": 60,
+      "y": 360,
       "width": 560,
       "height": 80,
       "color": "4"
     },
     {
-      "id": "wan-phone",
+      "id": "direct-phone",
       "type": "text",
-      "text": "**Телефон / PWA**\nдругая сеть",
+      "text": "**Телефон**\nдругая сеть",
       "x": -160,
-      "y": 200,
-      "width": 200,
+      "y": 480,
+      "width": 180,
       "height": 100,
       "color": "2"
     },
     {
-      "id": "wan-internet",
+      "id": "direct-net",
       "type": "text",
       "text": "**Интернет**",
-      "x": 100,
-      "y": 200,
-      "width": 160,
+      "x": 60,
+      "y": 480,
+      "width": 140,
       "height": 100,
       "color": "3"
     },
     {
-      "id": "wan-router",
+      "id": "direct-router",
       "type": "text",
       "text": "**Роутер**\nпроброс 81 · DDNS",
-      "x": 320,
-      "y": 200,
-      "width": 220,
+      "x": 240,
+      "y": 480,
+      "width": 200,
       "height": 100,
       "color": "3"
     },
     {
-      "id": "wan-esp",
+      "id": "direct-esp",
       "type": "text",
-      "text": "**ESP8266 / ESP32**\nIoTBotLAN :81",
-      "x": 600,
-      "y": 200,
-      "width": 220,
+      "text": "**ESP**\nIoTBotLAN :81",
+      "x": 480,
+      "y": 480,
+      "width": 200,
       "height": 100,
       "color": "5"
     },
     {
-      "id": "cgnat-header",
-      "type": "text",
-      "text": "## ЕСЛИ CGNAT\nПрямое соединение невозможно",
-      "x": -160,
-      "y": 400,
-      "width": 560,
-      "height": 80,
-      "color": "1"
-    },
-    {
       "id": "cgnat-note",
       "type": "text",
-      "text": "Провайдер не даёт входящие.\nНужен релей или туннель —\nэто ограничение сети, не архитектуры.",
-      "x": -160,
-      "y": 540,
-      "width": 460,
-      "height": 120,
+      "text": "CGNAT или мобильный интернет:\nвходящие запрещены.\nПрямой доступ невозможен —\nостаётся релей.",
+      "x": 720,
+      "y": 460,
+      "width": 260,
+      "height": 140,
       "color": "1"
     },
     {
@@ -125,7 +145,7 @@
       "type": "file",
       "file": "12 Режимы работы.md",
       "x": -160,
-      "y": 760,
+      "y": 720,
       "width": 280,
       "height": 180,
       "color": "4"
@@ -135,7 +155,7 @@
       "type": "file",
       "file": "02 Протокол.md",
       "x": 180,
-      "y": 760,
+      "y": 720,
       "width": 280,
       "height": 180,
       "color": "6"
@@ -145,13 +165,29 @@
       "type": "file",
       "file": "06 Сайт и деплой.md",
       "x": 520,
-      "y": 760,
+      "y": 720,
       "width": 280,
       "height": 180,
       "color": "3"
     }
   ],
   "edges": [
+    {
+      "id": "e-tg-dev",
+      "fromNode": "tg-esp",
+      "fromSide": "right",
+      "toNode": "tg-relay",
+      "toSide": "left",
+      "label": "WSS role=dev"
+    },
+    {
+      "id": "e-tg-usr",
+      "fromNode": "tg-phone",
+      "fromSide": "left",
+      "toNode": "tg-relay",
+      "toSide": "right",
+      "label": "WSS role=usr"
+    },
     {
       "id": "e-lan",
       "fromNode": "lan-pwa",
@@ -161,44 +197,28 @@
       "label": "ws://IP:81"
     },
     {
-      "id": "e-lan-note",
-      "fromNode": "lan-esp",
+      "id": "e-direct-1",
+      "fromNode": "direct-phone",
       "fromSide": "right",
-      "toNode": "lan-note",
-      "toSide": "left",
-      "label": "сам сервер"
-    },
-    {
-      "id": "e-wan-1",
-      "fromNode": "wan-phone",
-      "fromSide": "right",
-      "toNode": "wan-internet",
+      "toNode": "direct-net",
       "toSide": "left",
       "label": ""
     },
     {
-      "id": "e-wan-2",
-      "fromNode": "wan-internet",
+      "id": "e-direct-2",
+      "fromNode": "direct-net",
       "fromSide": "right",
-      "toNode": "wan-router",
+      "toNode": "direct-router",
       "toSide": "left",
       "label": ""
     },
     {
-      "id": "e-wan-3",
-      "fromNode": "wan-router",
+      "id": "e-direct-3",
+      "fromNode": "direct-router",
       "fromSide": "right",
-      "toNode": "wan-esp",
+      "toNode": "direct-esp",
       "toSide": "left",
       "label": "ws://PUBLIC:81"
-    },
-    {
-      "id": "e-cgnat",
-      "fromNode": "cgnat-note",
-      "fromSide": "top",
-      "toNode": "cgnat-header",
-      "toSide": "bottom",
-      "label": ""
     }
   ]
 }

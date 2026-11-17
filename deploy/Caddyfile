@@ -1,0 +1,12 @@
+# IoT-Messenger relay behind Caddy.
+# Replace relay.example.com with your domain, then:
+#   sudo cp deploy/Caddyfile /etc/caddy/Caddyfile
+#   sudo systemctl reload caddy
+#
+# Caddy obtains and renews a Let's Encrypt certificate automatically and
+# proxies WebSocket upgrades without extra configuration.
+
+relay.example.com {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:8080
+}

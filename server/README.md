@@ -14,6 +14,9 @@ Node.js 20+ / TypeScript / Fastify / ws / better-sqlite3.
 
 Contract: `../PROTOCOL.md` и `../shared/types.ts`.
 
+Deployment (Telegram-like relay: Cloudflare Tunnel, VPS + Caddy, Docker):
+[`DEPLOY.md`](DEPLOY.md).
+
 ## Запуск
 
 ```bash

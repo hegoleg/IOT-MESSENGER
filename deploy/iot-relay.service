@@ -1,0 +1,25 @@
+[Unit]
+Description=IoT-Messenger relay server
+Documentation=https://github.com/hegoleg/IOT-MESSENGER/blob/main/server/DEPLOY.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=iot
+Group=iot
+WorkingDirectory=/opt/iot-messenger/server
+EnvironmentFile=/opt/iot-messenger/server/.env
+ExecStart=/usr/bin/node dist/index.js
+Restart=always
+RestartSec=3
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/iot-messenger/server/data
+
+[Install]
+WantedBy=multi-user.target
