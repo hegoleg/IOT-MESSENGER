@@ -294,6 +294,63 @@ OneDrive/Syncthing на живой папке с `.git` и `node_modules` при
 - Не запускайте два релея с разными базами, если нужна общая история: это
   будут два независимых сервера.
 
+## Как смотреть изменения сайта
+
+### Пока друг редактирует (одна локальная сеть)
+
+Друг запускает сайт с доступом по сети:
+
+```bash
+npm run dev:landing:lan
+```
+
+Vite покажет `Network: http://192.168.x.x:5174`. Откройте этот адрес у себя —
+страница будет обновляться сама при каждом сохранении файла (HMR). Нужно
+разрешить порт 5174 в брандмауэре на ПК друга.
+
+```powershell
+# PowerShell от имени администратора на ПК друга
+New-NetFirewallRule -DisplayName "IoT-Messenger landing" `
+  -Direction Inbound -Protocol TCP -LocalPort 5174 -Action Allow
+```
+
+Это живой предпросмотр: правки видны до коммита.
+
+### После пуша — GitHub Pages
+
+Workflow `.github/workflows/deploy-landing.yml` собирает `landing/` и
+публикует сайт на GitHub Pages при каждом пуше в `main` (и вручную через
+`workflow_dispatch`).
+
+Адрес сайта:
+
+```
+https://hegoleg.github.io/IOT-MESSENGER/
+```
+
+Первый запуск: в GitHub откройте **Settings → Pages** и выберите
+**Source: GitHub Actions** (workflow пытается включить это сам, но настройку
+стоит проверить). После пуша страница обновится через минуту-две.
+
+Если друг работает в отдельной ветке и открывает pull request, сайт
+обновится после merge в `main`. Чтобы смотреть правки до merge —
+используйте LAN-предпросмотр выше.
+
+Кнопка «Открыть приложение» на GitHub Pages ведёт в `/app/`. Пока PWA там не
+развёрнута, сама страница сайта работает, а ссылка на приложение — нет. Когда
+PWA будет опубликована, укажите её адрес в `data-app-url` у ссылок
+`[data-app-link]` в `landing/index.html`.
+
+### На своём ПК
+
+```bash
+git pull --rebase
+npm install          # если менялся package-lock
+npm run dev:landing  # живой просмотр
+# или
+npm run build:landing && npm run preview:landing
+```
+
 ## Текущие ограничения
 
 - Прошивка из браузера и USB-настройка реализованы, но **не проверены на

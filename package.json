@@ -16,6 +16,7 @@
     "dev": "npm run dev --workspace @iot/server",
     "dev:web": "npm run dev --workspace @iot/web-app",
     "dev:landing": "vite landing --port 5174",
+    "dev:landing:lan": "vite landing --host --port 5174",
     "build:landing": "vite build landing --base=./",
     "preview:landing": "vite preview landing --port 4174",
     "firmware:export": "node firmware/scripts/export-flasher.mjs",
