@@ -403,6 +403,11 @@ npm run build:landing && npm run preview:landing
 2. `README.md` — запуск, проверки, деплой (этот файл).
 3. `PROTOCOL.md` + `shared/types.ts` — контракт.
 
+Вся документация также собрана в **Obsidian-vault**: папка
+[`obsidian/`](obsidian/). Откройте её как vault и начните с `00 Старт.md` —
+там карта проекта, архитектура, деплой, дорожная карта, ошибки и Canvas
+`Карта проекта.canvas`.
+
 Правила:
 
 - не добавляйте поля протокола без обновления `PROTOCOL.md` и `shared/types.ts`;

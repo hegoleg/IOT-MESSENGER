@@ -1,0 +1,116 @@
+{
+  "nodes": [
+    {
+      "id": "title",
+      "type": "text",
+      "text": "# IoT-Messenger\nКарта компонентов и потоков",
+      "x": 280,
+      "y": -180,
+      "width": 360,
+      "height": 100,
+      "color": "4"
+    },
+    {
+      "id": "dev",
+      "type": "file",
+      "file": "04 Прошивка.md",
+      "x": 0,
+      "y": 0,
+      "width": 280,
+      "height": 180,
+      "color": "5"
+    },
+    {
+      "id": "relay",
+      "type": "file",
+      "file": "03 Сервер.md",
+      "x": 380,
+      "y": 0,
+      "width": 280,
+      "height": 180,
+      "color": "1"
+    },
+    {
+      "id": "pwa",
+      "type": "file",
+      "file": "05 PWA.md",
+      "x": 760,
+      "y": 0,
+      "width": 280,
+      "height": 180,
+      "color": "2"
+    },
+    {
+      "id": "site",
+      "type": "file",
+      "file": "06 Сайт и деплой.md",
+      "x": 760,
+      "y": 260,
+      "width": 280,
+      "height": 180,
+      "color": "3"
+    },
+    {
+      "id": "proto",
+      "type": "file",
+      "file": "02 Протокол.md",
+      "x": 380,
+      "y": 260,
+      "width": 280,
+      "height": 180,
+      "color": "6"
+    },
+    {
+      "id": "start",
+      "type": "file",
+      "file": "00 Старт.md",
+      "x": 0,
+      "y": 260,
+      "width": 280,
+      "height": 180,
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "fromNode": "dev",
+      "fromSide": "right",
+      "toNode": "relay",
+      "toSide": "left",
+      "label": "WSS role=dev"
+    },
+    {
+      "id": "e2",
+      "fromNode": "relay",
+      "fromSide": "right",
+      "toNode": "pwa",
+      "toSide": "left",
+      "label": "WSS role=usr"
+    },
+    {
+      "id": "e3",
+      "fromNode": "site",
+      "fromSide": "top",
+      "toNode": "pwa",
+      "toSide": "bottom",
+      "label": "/app/"
+    },
+    {
+      "id": "e4",
+      "fromNode": "site",
+      "fromSide": "left",
+      "toNode": "dev",
+      "toSide": "bottom",
+      "label": "Web Serial"
+    },
+    {
+      "id": "e5",
+      "fromNode": "proto",
+      "fromSide": "right",
+      "toNode": "relay",
+      "toSide": "bottom",
+      "label": "контракт"
+    }
+  ]
+}
