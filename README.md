@@ -316,30 +316,32 @@ New-NetFirewallRule -DisplayName "IoT-Messenger landing" `
 
 Это живой предпросмотр: правки видны до коммита.
 
-### После пуша — GitHub Pages
+### После пуша — Netlify Deploy Preview
 
-Workflow `.github/workflows/deploy-landing.yml` собирает `landing/` и
-публикует сайт на GitHub Pages при каждом пуше в `main` (и вручную через
-`workflow_dispatch`).
+Репозиторий приватный, а GitHub Pages для приватных репозиториев доступен
+только на платных тарифах. Поэтому для автоматического предпросмотра добавлен
+`netlify.toml` (Netlify бесплатно собирает и приватные репозитории):
 
-Адрес сайта:
+- build command: `npm run build:landing`
+- publish: `landing/dist`
 
-```
-https://hegoleg.github.io/IOT-MESSENGER/
-```
+Подключение один раз:
 
-Первый запуск: в GitHub откройте **Settings → Pages** и выберите
-**Source: GitHub Actions** (workflow пытается включить это сам, но настройку
-стоит проверить). После пуша страница обновится через минуту-две.
+1. netlify.com → **Add new site → Import an existing project**.
+2. Выберите GitHub и авторизуйте Netlify для `hegoleg/IOT-MESSENGER`.
+3. Netlify прочитает `netlify.toml`; оставьте команды и нажмите **Deploy**.
+4. Пуш в `main` обновляет основной адрес сайта.
+5. Пуши в ветки и pull request получают **Deploy Preview** — отдельную ссылку
+   в PR. Её можно открыть до merge.
 
-Если друг работает в отдельной ветке и открывает pull request, сайт
-обновится после merge в `main`. Чтобы смотреть правки до merge —
-используйте LAN-предпросмотр выше.
+Альтернатива — Cloudflare Pages: build command `npm run build:landing`,
+output directory `landing/dist`; приватные репозитории и preview-деплои там
+тоже поддерживаются.
 
-Кнопка «Открыть приложение» на GitHub Pages ведёт в `/app/`. Пока PWA там не
-развёрнута, сама страница сайта работает, а ссылка на приложение — нет. Когда
-PWA будет опубликована, укажите её адрес в `data-app-url` у ссылок
-`[data-app-link]` в `landing/index.html`.
+Кнопка «Открыть приложение» ведёт в `/app/`. Пока PWA не развёрнута, страница
+сайта работает, а ссылка на приложение — нет. Когда PWA будет опубликована,
+укажите её адрес в `data-app-url` у ссылок `[data-app-link]` в
+`landing/index.html`.
 
 ### На своём ПК
 
