@@ -15,6 +15,7 @@
     "build": "npm run build --workspace @iot/shared && npm run build --workspace @iot/server && npm run build --workspace @iot/web-app && npm run build:landing",
     "dev": "npm run dev --workspace @iot/server",
     "dev:web": "npm run dev --workspace @iot/web-app",
+    "dev:web:lan": "npm run dev --workspace @iot/web-app -- --host",
     "dev:landing": "vite landing --port 5174",
     "dev:landing:lan": "vite landing --host --port 5174",
     "build:landing": "vite build landing --base=./",
@@ -24,6 +25,7 @@
     "start": "npm run start --workspace @iot/server",
     "smoke": "npm run smoke --workspace @iot/server",
     "sim:esp": "tsx server/scripts/esp-sim.ts",
+    "sim:lan": "tsx server/scripts/lan-sim.ts",
     "test": "npm run build --workspace @iot/shared && npm run test --workspace @iot/web-app && npm run test --workspace @iot/server",
     "test:esp": "npm run test --workspace @iot/server"
   },

@@ -80,19 +80,38 @@ npm run sim:esp -- --telemetry=5
 Симулятор создаёт токен и отвечает как ESP: `/start`, `/on`, `/off`,
 `/status`, `/stop`, инлайн-кнопки и телеметрия.
 
+### LAN без платы
+
+Если релей и интернет не нужны, поднимите виртуальную ESP с локальным
+WebSocket-сервером на порту 81:
+
+```bash
+npm run sim:lan        # терминал 1: «ESP» на :81
+npm run dev:web:lan    # терминал 2: PWA на http://<IP-ПК>:5173
+```
+
+В PWA включите режим «Локально», укажите хост компьютера (порт 81 добавится
+сам) и токен из вывода `sim:lan`. С телефона в той же Wi-Fi откройте
+`http://<IP-ПК>:5173`: HTTPS-страница не сможет подключиться к `ws://`
+из-за mixed content.
+
+`npm run sim:lan -- --help` — порт, токен, телеметрия и rate limit.
+
 ## Команды
 
 | Команда | Что делает |
 | --- | --- |
 | `npm run dev` | релей с автоперезагрузкой (`server/`) |
 | `npm run dev:web` | PWA в dev-режиме (`web-app/`) |
+| `npm run dev:web:lan` | PWA с доступом по локальной сети (`http://<IP>:5173`) |
 | `npm run dev:landing` | промо-сайт (`landing/`) |
 | `npm run build` | сборка shared, server, web-app и landing |
 | `npm run build:site` | лендинг + PWA в `landing/dist/app` для одного домена |
-| `npm test` | 30 юнит-тестов PWA + интеграционный тест симулятора ESP |
-| `npm run test:esp` | только тест симулятора ESP |
+| `npm test` | 30 юнит-тестов PWA + 10 тестов сервера |
+| `npm run test:esp` | только тесты сервера |
 | `npm run smoke` | HTTP/WS smoke-тест релея |
-| `npm run sim:esp` | интерактивный симулятор платы |
+| `npm run sim:esp` | интерактивный симулятор платы (облако) |
+| `npm run sim:lan` | виртуальная ESP с LAN-сервером на :81 |
 | `npm run firmware:export` | бинарники прошивки → `landing/public/firmware/` |
 | `npm run preview:landing` | предпросмотр собранного сайта |
 
