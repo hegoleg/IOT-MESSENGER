@@ -19,7 +19,8 @@ landing/
 ```bash
 # из корня репозитория
 npm run dev:landing      # http://localhost:5174
-npm run build:landing    # landing/dist
+npm run build:landing    # только сайт, landing/dist
+npm run build:site       # сайт + PWA в landing/dist/app
 npm run preview:landing  # предпросмотр сборки
 ```
 
@@ -37,14 +38,15 @@ npm run preview:landing  # предпросмотр сборки
 домена задайте `data-app-url="https://app.example.com/"` у ссылок
 `[data-app-link]` в `index.html`.
 
-PWA собирается с `base=/`. Для размещения в подпапке `/app/` пересоберите её
-с `--base=/app/` и поправьте `start_url`/`scope` манифеста; проще вынести PWA
-на отдельный поддомен.
+Для единого деплоя используйте `npm run build:site`: скрипт собирает лендинг
+и PWA с `APP_BASE=/app/`, затем копирует PWA в `landing/dist/app`. Манифест
+PWA получает `start_url` и `scope` `/app/`, service worker регистрируется в
+этой же папке.
 
 Для автоматического превью используется Netlify: `netlify.toml` в корне
-задаёт `npm run build:landing` и `landing/dist`. Подключите репозиторий в
-Netlify — каждый push в `main` обновит основной сайт, а pull request получит
-отдельный Deploy Preview.
+задаёт `npm run build:site` и `landing/dist`. Подключите репозиторий в
+Netlify — каждый push в `main` обновит основной сайт и PWA, а pull request
+получит отдельный Deploy Preview.
 
 ## Установка приложения
 

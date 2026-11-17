@@ -81,6 +81,7 @@ npm run sim:esp -- --telemetry=5
 | `npm run dev:web` | PWA в dev-режиме (`web-app/`) |
 | `npm run dev:landing` | промо-сайт (`landing/`) |
 | `npm run build` | сборка shared, server, web-app и landing |
+| `npm run build:site` | лендинг + PWA в `landing/dist/app` для одного домена |
 | `npm test` | 30 юнит-тестов PWA + интеграционный тест симулятора ESP |
 | `npm run test:esp` | только тест симулятора ESP |
 | `npm run smoke` | HTTP/WS smoke-тест релея |
@@ -151,16 +152,17 @@ npm run firmware:export
 Рекомендуемая схема — один домен:
 
 - `/` — `landing/dist` (промо + прошивка);
-- `/app/` — `web-app/dist` (PWA);
+- `/app/` — PWA (сборка кладёт её в `landing/dist/app`);
 - `/api/*` и `/ws` — Node-релей (`server/dist/index.js`, порт 8080).
+
+Для деплоя одним сайтом есть `npm run build:site`: он собирает лендинг и PWA
+с `APP_BASE=/app/` и копирует PWA в `landing/dist/app`. `netlify.toml`
+использует эту команду, поэтому после деплоя сайт и приложение работают на
+одном домене.
 
 Либо PWA на отдельном поддомене (`app.example.com`) — тогда укажите адрес в
 `data-app-url` у ссылок `[data-app-link]` в `landing/index.html` или
 пересоберите PWA с нужным `base`.
-
-Важно: PWA собирается с `base=/`. Для размещения в подпапке `/app/`
-пересоберите `web-app` с `--base=/app/` и поправьте `start_url`/`scope` в
-манифесте, либо используйте отдельный поддомен — это проще и надёжнее.
 
 Минимальный nginx:
 
@@ -322,7 +324,7 @@ New-NetFirewallRule -DisplayName "IoT-Messenger landing" `
 только на платных тарифах. Поэтому для автоматического предпросмотра добавлен
 `netlify.toml` (Netlify бесплатно собирает и приватные репозитории):
 
-- build command: `npm run build:landing`
+- build command: `npm run build:site`
 - publish: `landing/dist`
 
 Подключение один раз:
@@ -334,14 +336,13 @@ New-NetFirewallRule -DisplayName "IoT-Messenger landing" `
 5. Пуши в ветки и pull request получают **Deploy Preview** — отдельную ссылку
    в PR. Её можно открыть до merge.
 
-Альтернатива — Cloudflare Pages: build command `npm run build:landing`,
+Альтернатива — Cloudflare Pages: build command `npm run build:site`,
 output directory `landing/dist`; приватные репозитории и preview-деплои там
 тоже поддерживаются.
 
-Кнопка «Открыть приложение» ведёт в `/app/`. Пока PWA не развёрнута, страница
-сайта работает, а ссылка на приложение — нет. Когда PWA будет опубликована,
-укажите её адрес в `data-app-url` у ссылок `[data-app-link]` в
-`landing/index.html`.
+После деплоя PWA доступна по `/app/` на том же домене и устанавливается с
+телефона. Если хотите отдельный поддомен для приложения — задайте его в
+`data-app-url` у ссылок `[data-app-link]`.
 
 ### На своём ПК
 

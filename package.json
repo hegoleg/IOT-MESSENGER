@@ -18,6 +18,7 @@
     "dev:landing": "vite landing --port 5174",
     "dev:landing:lan": "vite landing --host --port 5174",
     "build:landing": "vite build landing --base=./",
+    "build:site": "node scripts/build-site.mjs",
     "preview:landing": "vite preview landing --port 4174",
     "firmware:export": "node firmware/scripts/export-flasher.mjs",
     "start": "npm run start --workspace @iot/server",

@@ -3,7 +3,11 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
 
+// Deployment can place the PWA in a subfolder, e.g. APP_BASE=/app/.
+const base = `${(process.env.APP_BASE || "/").replace(/\/+$/, "")}/`;
+
 export default defineConfig({
+  base,
   plugins: [
     react(),
     tailwindcss(),
@@ -15,8 +19,8 @@ export default defineConfig({
         short_name: "IoT Messenger",
         description: "Мессенджер для устройств на ESP8266 и ESP32",
         lang: "ru",
-        start_url: "/",
-        scope: "/",
+        start_url: base,
+        scope: base,
         display: "standalone",
         orientation: "portrait",
         theme_color: "#08090b",
@@ -34,7 +38,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,svg,png,woff2}"],
-        navigateFallback: "/index.html",
+        navigateFallback: `${base}index.html`,
         cleanupOutdatedCaches: true
       },
       devOptions: {
