@@ -168,10 +168,12 @@ npm run firmware:export
   `/IOT-MESSENGER/app/`;
 - Netlify или свой домен в корне: без `SITE_BASE` → PWA по `/app/`.
 
-GitHub Pages публикуется workflow `.github/workflows/deploy-pages.yml` при
-пуше в `main`. `netlify.toml` делает ту же сборку для Netlify (без
-`SITE_BASE`). Релей (`/api`, `/ws`) на GitHub Pages не размещается — его
-адрес указывается в приложении или передаётся в QR при прошивке.
+GitHub Pages обновляется workflow `.github/workflows/deploy-gh-pages.yml`:
+при пуше в `main` он собирает сайт и пушит `landing/dist` в ветку
+`gh-pages`, а Pages публикует эту ветку. `netlify.toml` делает ту же сборку
+для Netlify (без `SITE_BASE`). Релей (`/api`, `/ws`) на GitHub Pages не
+размещается — его адрес указывается в приложении или передаётся в QR при
+прошивке.
 
 Либо PWA на отдельном поддомене (`app.example.com`) — тогда укажите адрес в
 `data-app-url` у ссылок `[data-app-link]` в `landing/index.html` или
@@ -334,8 +336,9 @@ New-NetFirewallRule -DisplayName "IoT-Messenger landing" `
 ### После пуша — GitHub Pages
 
 Репозиторий публичный, поэтому GitHub Pages работает на бесплатном тарифе.
-Workflow `.github/workflows/deploy-pages.yml` собирает `landing/` и PWA
-(`SITE_BASE=/IOT-MESSENGER/`) и публикует их при каждом пуше в `main`.
+Workflow `.github/workflows/deploy-gh-pages.yml` собирает `landing/` и PWA
+(`SITE_BASE=/IOT-MESSENGER/`) и пушит `landing/dist` в ветку `gh-pages`.
+Pages публикует эту ветку при каждом пуше в `main`.
 
 - сайт: https://hegoleg.github.io/IOT-MESSENGER/
 - приложение: https://hegoleg.github.io/IOT-MESSENGER/app/

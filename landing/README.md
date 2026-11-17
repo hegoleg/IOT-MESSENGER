@@ -46,10 +46,10 @@ npm run preview:landing  # предпросмотр сборки
 - `SITE_BASE=/IOT-MESSENGER/ npm run build:site` → PWA по
   `/IOT-MESSENGER/app/` (GitHub Pages в подпапке).
 
-Для GitHub Pages workflow `.github/workflows/deploy-pages.yml` собирает сайт
-с нужным `SITE_BASE` и публикует при пуше в `main`. Для Netlify `netlify.toml`
-делает сборку без `SITE_BASE`; он также удобен для Deploy Preview в pull
-request.
+Для GitHub Pages workflow `.github/workflows/deploy-gh-pages.yml` собирает
+сайт с нужным `SITE_BASE` и пушит результат в ветку `gh-pages` при пуше в
+`main`; Pages публикует эту ветку. Для Netlify `netlify.toml` делает сборку
+без `SITE_BASE`; он также удобен для Deploy Preview в pull request.
 
 ## Установка приложения
 
