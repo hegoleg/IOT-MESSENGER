@@ -5,9 +5,34 @@
 @media(max-width:600px){body{font-size:17px}.brand{font-size:35px}.nav nav{display:none}.hero{height:940px;min-height:0;max-height:none}.probe{top:95px;right:24px;width:150px}.probe>span{font-size:12px}.readout{font-size:44px}.probe .text-button{font-size:13px}.board-stage{top:100px;bottom:280px;left:-30%;right:-25%}.hero-copy{display:block;bottom:60px}.hero h1{font-size:20vw;max-width:8ch;line-height:.9}.hero-aside{width:auto;max-width:none;margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:16px}.hero-aside>p{font-size:18px;flex:1;min-width:145px}.hero-aside .button{font-size:14px;padding:14px;gap:10px;margin:0;min-height:50px}.hero-aside .small{flex-basis:100%;font-size:12px}.story{height:auto}.story-stage{height:auto;min-height:0;position:relative;padding:65px var(--m)}.story-top p:last-child{display:none}.story-top{margin-bottom:45px}.story h2{font-size:11vw}.route{padding:0;gap:0;margin:55px -10px}.route-item{width:31%}.route-icon{width:50px;height:50px;font-size:38px}.relay .route-icon{font-size:48px}.route-item strong{font-size:16px}.route-item p{font-size:11px}.wire{min-width:10px}.story-bottom{font-size:14px}.story-bottom>span{display:none}.section{padding:70px var(--m)}h2{font-size:13vw}.section-head>p{font-size:17px}.demo-layout{display:flex;flex-direction:column;gap:28px}.command-index{padding:0}.command-index>button{display:inline-flex;width:auto;gap:8px;font-size:18px;padding:12px 14px 12px 0}.command-index>button span:first-child{font-size:11px;color:var(--muted)}.command-index>button span:last-child{display:none}.command-index>button.active{color:var(--accent);transform:none}#command-note{font-size:16px;min-height:0;margin:12px 0 20px}.device-state{display:none}.messenger{min-height:530px;transform:none}.messenger #messages{height:330px}.messenger>header{padding:20px}.demo-caption{font-size:11px}.code-layout{gap:30px}.code-intro>p:first-child{font-size:27px}.editor pre{font-size:12px;padding:20px 15px}.editor header,.editor footer{padding:18px 15px;font-size:12px}.principles{display:block}.principle{margin-bottom:55px}.principle:last-child{margin:0}.principle h3{font-size:38px;margin:22px 0 20px}.principle p{max-width:34ch}.faq h2{margin-bottom:45px}.faq-layout{grid-template-columns:1fr;gap:40px}.faq [role=tablist]{gap:20px}.faq [role=tab]{font-size:25px}.answer-number{font-size:50px;margin-bottom:20px}.faq [role=tabpanel]{min-height:220px}.faq [role=tabpanel] p{font-size:19px}.closing>p{font-size:10vw}.wordmark{margin-top:80px;font-size:12.3vw}.footer{flex-wrap:wrap;font-size:12px;gap:22px}.footer a:first-child{flex-basis:100%}.footer button{font-size:12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}[data-reveal]{opacity:1;transform:none}.messenger{transform:none}.story{height:auto}.story-stage{position:relative}.wordmark{transform:none}}
 
+/* Flasher: firmware and USB provisioning straight from the browser. */
+.flash-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.panel{background:var(--surface);border:1px solid #ffffff14;padding:clamp(22px,2.6vw,40px)}
+.panel h3{font-size:clamp(26px,2.8vw,40px);letter-spacing:-.045em;line-height:1.02;margin:14px 0 12px}
+.panel p{color:var(--muted);font-size:15px;line-height:1.5}
+.step{font-family:Consolas,'Courier New',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.field{width:100%;background:var(--bg);border:1px solid #ffffff2b;color:var(--ink);padding:14px 16px;font:inherit;font-size:15px;border-radius:0}
+.field:focus{outline:2px solid var(--accent);outline-offset:0}
+.row{display:flex;gap:10px;margin:10px 0}
+.row .field{min-width:0;flex:1}
+.ghostbtn{display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid #ffffff2b;color:var(--ink);padding:14px 18px;font:inherit;font-size:14px;transition:border-color .2s,color .2s}
+.ghostbtn:hover{border-color:var(--accent);color:var(--accent)}
+.ghostbtn:disabled{opacity:.45;cursor:not-allowed}
+.panel .button{margin:18px 0 6px;width:100%;text-align:left}
+.log{background:var(--bg);border:1px solid #ffffff14;padding:14px;font-family:Consolas,'Courier New',monospace;font-size:12px;line-height:1.55;color:var(--muted);height:190px;overflow-y:auto;white-space:pre-wrap;margin-top:16px}
+.warn{border-left:2px solid var(--accent);background:#ff5a1f14;color:#ffd9c7;padding:12px 14px;font-size:14px;margin:12px 0}
+.token{font-family:Consolas,'Courier New',monospace;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid #ffffff2b;padding:14px;word-break:break-all;user-select:all}
+.qr{background:#f2f0eb;padding:10px;display:block}
+.result{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:start;margin-top:22px;border-top:1px solid #ffffff14;padding-top:22px}
+.status{font-size:13px;color:var(--muted);min-height:18px;margin:6px 0 12px}
+.status[data-kind=ok]{color:var(--accent)}
+.status[data-kind=error]{color:#ff7661}
+esp-web-install-button{display:block}
+@media(max-width:900px){.flash-grid{grid-template-columns:1fr}.result{grid-template-columns:1fr}}
+
 /* The dark-room design is defined in style.css. */</style></head>
 <body><a class="skip" href="#demo">Перейти к демо</a>
-<header class="nav"><a class="brand" href="#home" aria-label="IoT Messenger, начало">iot<span>↗</span></a><nav aria-label="Основная навигация"><a href="#story">Как работает</a><a href="#demo">Попробовать</a><a href="#code">Для разработчиков</a></nav><a class="nav-source" href="https://github.com/hegoleg/IOT-MESSENGER" target="_blank" rel="noopener">GitHub ↗</a></header>
+<header class="nav"><a class="brand" href="#home" aria-label="IoT Messenger, начало">iot<span>↗</span></a><nav aria-label="Основная навигация"><a href="#story">Как работает</a><a href="#demo">Попробовать</a><a href="#flash">Прошить</a><a href="#code">Для разработчиков</a></nav><a class="nav-source" href="https://github.com/hegoleg/IOT-MESSENGER" target="_blank" rel="noopener">GitHub ↗</a></header>
 <main><section class="hero" id="home" aria-labelledby="title"><canvas id="field" aria-hidden="true"></canvas><div class="board-stage"><canvas id="board" role="img" aria-label="Интерактивная модель платы ESP32. Движение указателя поворачивает плату; команда /led в демо переключает индикатор."></canvas></div>
 <div class="probe"><span>ESP32 / демонстрация</span><div class="readout"><span id="led-label">OFF</span><i id="led-dot"></i></div><button class="text-button" id="hero-led">Переключить LED ↗</button></div>
 <div class="hero-copy"><h1 id="title">Связь<br>с железом<span>.</span></h1><div class="hero-aside"><p>Ваши платы умеют говорить.<br>Дайте им свой мессенджер.</p><a class="button" href="#demo">Отправить команду <span>↗</span></a><p class="small">ESP8266 · ESP32 · свой сервер</p></div></div><a href="#story" class="scroll-link" aria-label="Листать дальше">↓</a></section>
@@ -24,6 +49,40 @@
 <span class="keyword">if</span> (message == <span class="string">"/status"</span>) {
   sendMessage(readSensors());
 }</code></pre><footer>C++ / ESP8266 / ESP32 <span>01 — 11</span></footer></div></div></section>
+<section class="section flash" id="flash" aria-labelledby="flash-title"><div class="section-head"><h2 id="flash-title">Прошейте<br><span>плату из браузера.</span></h2><p>Chrome или Edge на компьютере, USB-кабель и плата ESP8266 или ESP32. Прошивка, Wi-Fi, релей и токен — без PlatformIO и терминала.</p></div>
+<div class="flash-grid">
+<div class="panel"><p class="step">Шаг 01 — прошивка</p><h3>Подключите плату по USB</h3><p>Нажмите «Прошить плату», выберите COM-порт и дождитесь окончания. Плата перезагрузится в режим настройки.</p>
+<esp-web-install-button id="flash-installer" manifest="../firmware/manifest.json">
+<button slot="activate" class="button">Прошить плату <span>↗</span></button>
+<span slot="unsupported" class="warn">Web Serial недоступен. Откройте страницу в Chrome или Edge на компьютере по HTTPS.</span>
+<span slot="not-allowed" class="warn">Разрешите браузеру доступ к USB-порту.</span>
+</esp-web-install-button>
+<p class="step">IoTBot Quickstart · ESP8266 · ESP32 · Wi-Fi 2,4 ГГц</p></div>
+<div class="panel"><p class="step">Шаг 02 — настройка</p><h3>Wi-Fi, релей и токен</h3><p>Закройте окно установки и подключитесь к плате: страница найдёт Wi-Fi сети, создаст токен на релее и запишет настройки в память платы.</p>
+<div id="flash-unsupported" class="warn" hidden>Для настройки по USB нужен Chrome или Edge на компьютере (HTTPS или localhost). С телефона прошивка недоступна.</div>
+<div id="flash-controls">
+<label class="step" for="flash-relay">Адрес вашего релея</label>
+<div class="row"><input id="flash-relay" class="field" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="wss://relay.example.com"><button type="button" id="flash-check" class="ghostbtn">Проверить</button></div>
+<p id="flash-relay-status" class="status" role="status"></p>
+<button type="button" id="flash-connect" class="button">Подключиться к плате <span>↗</span></button>
+<div id="flash-serial" hidden>
+<label class="step" for="flash-ssid">Wi-Fi сеть</label>
+<div class="row"><input id="flash-ssid" class="field" list="flash-networks" autocomplete="off" placeholder="Выберите сеть или введите SSID"><button type="button" id="flash-scan" class="ghostbtn">Сканировать</button></div>
+<datalist id="flash-networks"></datalist>
+<label class="step" for="flash-password">Пароль сети</label>
+<div class="row"><input id="flash-password" class="field" type="password" autocomplete="off" placeholder="Пароль Wi-Fi"></div>
+<button type="button" id="flash-configure" class="button">Настроить плату <span>↗</span></button>
+</div>
+<p id="flash-log" class="log" role="status" aria-live="polite"></p>
+</div>
+<div id="flash-result" class="result" hidden>
+<div><p class="step">Готово</p><p class="token" id="flash-token-value"></p>
+<div class="row"><button type="button" id="flash-copy" class="ghostbtn">Скопировать токен</button><a id="flash-open" class="ghostbtn" href="#">Открыть приложение ↗</a></div>
+<p class="status">Отсканируйте QR-код телефоном — приложение само добавит устройство.</p></div>
+<canvas id="flash-qr" class="qr" width="200" height="200" aria-label="QR-код устройства"></canvas>
+</div>
+</div>
+</div></section>
 <section class="principles section" aria-label="Возможности системы"><div class="principle"><span>Контроль</span><h3>Ваш сервер.<br>Ваши сообщения.</h3><p>Self-hosted relay на Fastify и WebSocket. История хранится в SQLite. Вы выбираете, где работает система.</p></div><div class="principle"><span>Интерфейс</span><h3>Не только<br>текст.</h3><p>Кнопки управления до 3 × 3, история последних 50 сообщений и веб-приложение, которое можно установить как PWA.</p></div><div class="principle"><span>Масштаб</span><h3>Маленькая плата.<br>Полезные дела.</h3><p>Датчики, реле, уведомления из мастерской. Текст до 512 байт и пакеты до 1024 байт — для коротких команд и ответов.</p></div></section>
 <section class="faq section" id="faq" aria-labelledby="faq-title"><h2 id="faq-title">По существу.</h2><div class="faq-layout"><div role="tablist" aria-label="Вопросы"><button role="tab" id="q0" aria-selected="true" aria-controls="answer">Это Telegram?</button><button role="tab" id="q1" aria-selected="false" aria-controls="answer">Что нужно для запуска?</button><button role="tab" id="q2" aria-selected="false" aria-controls="answer">Это уже готовый сервис?</button><button role="tab" id="q3" aria-selected="false" aria-controls="answer">Что работает в демо?</button></div><div id="answer" role="tabpanel" aria-labelledby="q0"><span class="answer-number" aria-hidden="true">↗</span><p id="answer-text">Это отдельный мессенджер для устройств. Он использует похожую логику команд, но сообщения проходят через ваш сервер, а не через Telegram.</p></div></div></section>
 <section class="closing section"><p>Сначала — одна команда.<br>Дальше — ваши идеи.</p><a class="button" href="#demo">Попробовать в деле <span>↗</span></a><div class="wordmark" aria-hidden="true">iot messenger<span>↗</span></div></section></main><footer class="footer"><a href="#home">IoT Messenger</a><span>Открытая система сообщений для устройств</span><button id="motion" aria-pressed="false">Приостановить анимацию</button><a href="https://github.com/hegoleg/IOT-MESSENGER" target="_blank" rel="noopener">Исходный код ↗</a></footer>
@@ -81,4 +140,348 @@ function frame(time){if(paused||document.hidden){last=0;return;}const dt=Math.mi
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!paused){last=0;requestAnimationFrame(frame);}});resize();scrollScene();if(!paused)requestAnimationFrame(frame);
 })();
 
-</script></body></html>
+</script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/esp-web-tools@10.5.2/+esm"></script>
+<script type="module">
+const q = (id) => document.getElementById(id);
+const el = {
+  relay: q('flash-relay'), check: q('flash-check'), status: q('flash-relay-status'),
+  connect: q('flash-connect'), serial: q('flash-serial'), scan: q('flash-scan'),
+  ssid: q('flash-ssid'), nets: q('flash-networks'), pass: q('flash-password'),
+  configure: q('flash-configure'), log: q('flash-log'), unsupported: q('flash-unsupported'),
+  controls: q('flash-controls'), result: q('flash-result'), token: q('flash-token-value'),
+  qr: q('flash-qr'), copy: q('flash-copy'), open: q('flash-open'),
+};
+
+function normalizeRelay(raw) {
+  const value = raw.trim();
+  if (!value) return null;
+  const candidate = /^[a-z][a-z0-9+.-]*:\/\//i.test(value) ? value : 'ws://' + value;
+  let url;
+  try { url = new URL(candidate); } catch { return null; }
+  if (url.protocol === 'http:') url.protocol = 'ws:';
+  if (url.protocol === 'https:') url.protocol = 'wss:';
+  if (url.protocol !== 'ws:' && url.protocol !== 'wss:') return null;
+  let path = url.pathname.replace(/\/+$/, '');
+  if (path.endsWith('/ws')) path = path.slice(0, -3).replace(/\/+$/, '');
+  return url.protocol + '//' + url.host + path;
+}
+
+function toHttpBase(relay) {
+  return relay.replace(/^wss:/, 'https:').replace(/^ws:/, 'http:').replace(/\/+$/, '');
+}
+
+function parseRelay(relay) {
+  const url = new URL(relay);
+  const secure = url.protocol === 'wss:';
+  return { host: url.hostname, port: Number(url.port) || (secure ? 443 : 80), secure };
+}
+
+async function checkRelay(relay) {
+  const response = await fetch(toHttpBase(relay) + '/api/v1/health', {
+    headers: { Accept: 'application/json' },
+  });
+  if (!response.ok) throw new Error('Релей ответил HTTP ' + response.status);
+  const payload = await response.json();
+  if (!payload || payload.ok !== true || payload.v !== 1) {
+    throw new Error('По этому адресу нет релея IoT-Messenger');
+  }
+  return payload;
+}
+
+async function createToken(relay) {
+  const response = await fetch(toHttpBase(relay) + '/api/v1/devices/create', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: '{}',
+  });
+  if (!response.ok) throw new Error('Токен не создан: HTTP ' + response.status);
+  const payload = await response.json();
+  if (!payload || typeof payload.token !== 'string' || !payload.token) {
+    throw new Error('Релей вернул некорректный токен');
+  }
+  return payload.token;
+}
+
+class BoardSerial {
+  constructor(log) {
+    this.log = log;
+    this.port = null;
+    this.reader = null;
+    this.writer = null;
+    this.buffer = '';
+    this.history = [];
+    this.waiters = [];
+    this.decoder = new TextDecoder();
+  }
+
+  get connected() { return this.port !== null; }
+
+  async connect() {
+    const port = await navigator.serial.requestPort();
+    await port.open({ baudRate: 115200 });
+    this.port = port;
+    this.writer = port.writable.getWriter();
+    this.reader = port.readable.getReader();
+    this.buffer = '';
+    this.history = [];
+    void this.readLoop();
+  }
+
+  async readLoop() {
+    const reader = this.reader;
+    try {
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        this.buffer += this.decoder.decode(value, { stream: true });
+        let newline;
+        while ((newline = this.buffer.indexOf('\n')) >= 0) {
+          const line = this.buffer.slice(0, newline).replace(/\r$/, '').trim();
+          this.buffer = this.buffer.slice(newline + 1);
+          if (line) this.handleLine(line);
+        }
+      }
+    } catch (error) {
+      if (this.port) this.log('USB: ' + error.message);
+    }
+  }
+
+  handleLine(line) {
+    this.history.push(line);
+    if (this.history.length > 80) this.history.shift();
+    if (line.startsWith('IOTBOT:')) this.log(line);
+    for (const waiter of [...this.waiters]) {
+      if (!waiter.predicate(line)) continue;
+      clearTimeout(waiter.timer);
+      this.waiters = this.waiters.filter((item) => item !== waiter);
+      waiter.resolve(line);
+    }
+  }
+
+  clearHistory() { this.history = []; }
+
+  waitFor(predicate, timeoutMs = 5000) {
+    const existing = this.history.find((line) => predicate(line));
+    if (existing) return Promise.resolve(existing);
+    return new Promise((resolve, reject) => {
+      const waiter = { predicate, resolve, timer: null };
+      waiter.timer = setTimeout(() => {
+        this.waiters = this.waiters.filter((item) => item !== waiter);
+        reject(new Error('Плата не ответила вовремя'));
+      }, timeoutMs);
+      this.waiters.push(waiter);
+    });
+  }
+
+  async send(line) {
+    if (!this.writer) throw new Error('USB-порт не открыт');
+    await this.writer.write(new TextEncoder().encode(line + '\n'));
+  }
+
+  async close() {
+    try { await this.reader?.cancel(); } catch {}
+    try { this.writer?.releaseLock(); } catch {}
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    try { await this.port?.close(); } catch {}
+    this.port = null;
+    this.reader = null;
+    this.writer = null;
+  }
+}
+
+let busy = false;
+const serial = new BoardSerial((line) => appendLog(line));
+
+function appendLog(line) {
+  el.log.textContent += line + '\n';
+  const lines = el.log.textContent.split('\n');
+  if (lines.length > 14) el.log.textContent = lines.slice(-14).join('\n');
+  el.log.scrollTop = el.log.scrollHeight;
+}
+
+function setStatus(text, kind) {
+  el.status.textContent = text;
+  el.status.dataset.kind = kind || '';
+}
+
+function setBusy(value) {
+  busy = value;
+  for (const button of [el.check, el.connect, el.scan, el.configure]) {
+    if (button) button.disabled = value;
+  }
+}
+
+const params = new URLSearchParams(window.location.search);
+const local = ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname);
+el.relay.value = params.get('relay') || (local
+  ? 'ws://' + window.location.hostname + ':8080'
+  : (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host);
+
+if (!('serial' in navigator) || !window.isSecureContext) {
+  el.unsupported.hidden = false;
+  el.controls.hidden = true;
+} else {
+  el.unsupported.hidden = true;
+}
+
+el.check.addEventListener('click', async () => {
+  const relay = normalizeRelay(el.relay.value);
+  if (!relay) {
+    setStatus('Введите адрес вида wss://relay.example.com', 'error');
+    return;
+  }
+  el.relay.value = relay;
+  setStatus('Проверяем релей…');
+  try {
+    const health = await checkRelay(relay);
+    setStatus('Релей доступен · uptime ' + health.uptime + ' с', 'ok');
+  } catch (error) {
+    setStatus(error.message, 'error');
+  }
+});
+
+el.connect.addEventListener('click', async () => {
+  if (busy) return;
+  setBusy(true);
+  try {
+    appendLog('Открываем USB-порт…');
+    await serial.connect();
+    appendLog('Порт открыт. Ищем плату…');
+    serial.clearHistory();
+    const ready = await serial
+      .waitFor((line) => line.includes('IOTBOT:READY') || line.includes('IOTBOT:HELLO'), 3500)
+      .catch(() => null);
+    if (!ready) {
+      serial.clearHistory();
+      await serial.send('IOTBOT:WHO');
+      await serial.waitFor(
+        (line) => line.includes('IOTBOT:HELLO') || line.includes('IOTBOT:READY'),
+        5000,
+      );
+    }
+    appendLog('Плата на связи.');
+    el.serial.hidden = false;
+    await scanNetworks();
+  } catch (error) {
+    appendLog('USB: ' + error.message);
+    appendLog('Если открыто окно ESP Web Tools — закройте его и нажмите снова.');
+    await serial.close();
+  } finally {
+    setBusy(false);
+  }
+});
+
+async function scanNetworks() {
+  setBusy(true);
+  try {
+    serial.clearHistory();
+    appendLog('Сканируем Wi-Fi сети…');
+    await serial.send('IOTBOT:SCAN');
+    const line = await serial.waitFor((value) => value.startsWith('IOTBOT:NETWORKS:'), 15000);
+    const networks = JSON.parse(line.slice('IOTBOT:NETWORKS:'.length));
+    el.nets.innerHTML = '';
+    for (const ssid of networks) {
+      const option = document.createElement('option');
+      option.value = ssid;
+      el.nets.appendChild(option);
+    }
+    appendLog('Найдено сетей: ' + networks.length + '. Выберите сеть или введите SSID.');
+  } catch (error) {
+    appendLog('Скан не удался: ' + error.message + '. Введите SSID вручную.');
+  } finally {
+    setBusy(false);
+  }
+}
+
+el.scan.addEventListener('click', () => {
+  if (!busy) void scanNetworks();
+});
+
+el.configure.addEventListener('click', async () => {
+  if (busy) return;
+  const relay = normalizeRelay(el.relay.value);
+  const ssid = el.ssid.value.trim();
+  if (!relay) { appendLog('Укажите корректный адрес релея.'); return; }
+  if (!ssid) { appendLog('Выберите Wi-Fi сеть или введите SSID.'); return; }
+  if (!serial.connected) { appendLog('Сначала подключитесь к плате по USB.'); return; }
+
+  setBusy(true);
+  try {
+    appendLog('Проверяем релей…');
+    await checkRelay(relay);
+    appendLog('Создаём токен…');
+    const token = await createToken(relay);
+    const target = parseRelay(relay);
+    const config = {
+      ssid,
+      pass: el.pass.value,
+      token,
+      host: target.host,
+      port: target.port,
+      secure: target.secure,
+    };
+    serial.clearHistory();
+    appendLog('Отправляем настройки на плату…');
+    await serial.send('IOTBOT:SET:' + JSON.stringify(config));
+    await serial.waitFor((line) => line === 'IOTBOT:OK', 10000);
+    appendLog('Плата сохранила настройки и перезагружается.');
+    await serial.close();
+    await showResult(token, relay);
+  } catch (error) {
+    appendLog('Ошибка настройки: ' + error.message);
+  } finally {
+    setBusy(false);
+  }
+});
+
+async function showResult(token, relay) {
+  el.token.textContent = token;
+  el.result.hidden = false;
+
+  let value = token;
+  try {
+    const url = new URL('../app/', window.location.href);
+    url.hash = new URLSearchParams({ token, relay }).toString();
+    value = url.toString();
+    el.open.href = value;
+  } catch {
+    el.open.href = new URL('../app/', window.location.href).toString();
+  }
+
+  try {
+    const qr = await import('https://cdn.jsdelivr.net/npm/qrcode@1.5.4/+esm');
+    const api = qr.toCanvas ? qr : qr.default;
+    await api.toCanvas(el.qr, value, {
+      width: 200,
+      margin: 1,
+      color: { dark: '#101113', light: '#f2f0eb' },
+    });
+  } catch {
+    el.qr.hidden = true;
+  }
+
+  el.result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+el.copy.addEventListener('click', async () => {
+  const token = el.token.textContent ?? '';
+  if (!token) return;
+  try {
+    await navigator.clipboard.writeText(token);
+  } catch {
+    const area = document.createElement('textarea');
+    area.value = token;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.top = '-1000px';
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand('copy');
+    area.remove();
+  }
+  el.copy.textContent = 'Скопировано';
+  window.setTimeout(() => { el.copy.textContent = 'Скопировать токен'; }, 1600);
+});
+</script>
+</body></html>

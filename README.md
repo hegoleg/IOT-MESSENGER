@@ -7,14 +7,14 @@
 - **Протокол:** IoT-Messenger v1, плоский JSON, пакет до 1024 байт.
 - **Платы:** ESP8266 (`espressif8266`) и ESP32 (`espressif32`).
 - **Сервер:** Node.js 20+, Fastify 5, ws, better-sqlite3.
-- **Клиент:** React 19, Vite, TypeScript, Tailwind CSS, PWA.
+- **Клиент:** React 19, Vite, TypeScript, Tailwind CSS, PWA, локальные профили.
 - **Сайт:** статический лендинг + прошивка через Web Serial.
 
 Живые адреса:
 
 - сайт: https://hegoleg.github.io/IOT-MESSENGER/
 - приложение (PWA): https://hegoleg.github.io/IOT-MESSENGER/app/
-- концепт нового лендинга: https://hegoleg.github.io/IOT-MESSENGER/preview/
+- концепт лендинга друга + прошивка из браузера: https://hegoleg.github.io/IOT-MESSENGER/preview/
 - альтернативный хостинг: https://brilliant-kashata-2a9cd6.netlify.app/
 
 ## Архитектура

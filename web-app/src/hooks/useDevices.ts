@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { AddDeviceInput, StoredDevice } from "../lib/types";
-import { DEVICES_STORAGE_KEY, loadDevices, normalizeLocalHost, normalizeRename, prepareDevice, saveDevices } from "../lib/deviceStore";
+import { devicesStorageKey, loadDevices, normalizeLocalHost, normalizeRename, prepareDevice, saveDevices } from "../lib/deviceStore";
 
 /** Ignore repeated activity updates within one second (App.tsx effect guard). */
 const TOUCH_THROTTLE_MS = 1000;
@@ -43,10 +43,12 @@ export function useDevices(seed?: AddDeviceInput): UseDevicesResult {
     setDevices(next);
   }, []);
 
-  // Cross-tab sync: another tab added/removed/renamed a device.
+  // Cross-tab sync: another tab added/removed/renamed a device in this profile.
   useEffect(() => {
+    const watched = devicesStorageKey();
+
     const handleStorage = (event: StorageEvent) => {
-      if (event.key !== null && event.key !== DEVICES_STORAGE_KEY) return;
+      if (event.key !== null && event.key !== watched) return;
       const next = loadDevices();
       devicesRef.current = next;
       setDevices(next);

@@ -3,6 +3,7 @@ import AppHeader from "./components/AppHeader";
 import ChatView from "./components/ChatView";
 import DeviceList from "./components/DeviceList";
 import Onboarding, { type OnboardingResult } from "./components/Onboarding";
+import ProfilesModal from "./components/ProfilesModal";
 import SettingsModal from "./components/SettingsModal";
 import { useDeviceChat } from "./hooks/useDeviceChat";
 import { useDevices } from "./hooks/useDevices";
@@ -15,6 +16,17 @@ import {
   markOnboarded,
   saveServerUrl,
 } from "./lib/settings";
+import {
+  createProfile,
+  deleteProfile,
+  getActiveProfileId,
+  loadProfiles,
+  profileById,
+  renameProfile,
+  setActiveProfileId,
+  scopedKey,
+  type Profile,
+} from "./lib/profiles";
 import type { ConnectionMode, PresenceState } from "./lib/types";
 import { isValidToken } from "./lib/deviceStore";
 import { normalizeServerUrl } from "./lib/serverApi";
@@ -37,13 +49,81 @@ function deepLinkFromHash(): DeepLink | null {
   return { token, relay: relay ?? undefined };
 }
 
+/**
+ * Owns the local profile selection. Every profile gets its own storage scope,
+ * so the workspace below is remounted (via `key`) when the user switches.
+ */
 export default function App() {
+  const [profiles, setProfiles] = useState<Profile[]>(() => loadProfiles());
+  const [profileId, setProfileId] = useState<string>(() => getActiveProfileId());
+  const [profilesOpen, setProfilesOpen] = useState(false);
+
+  const activeProfile = useMemo(() => {
+    const stored = profileById(profileId);
+    return profiles.find((profile) => profile.id === stored.id) ?? stored;
+  }, [profileId, profiles]);
+
+  function handleCreateProfile(name: string): void {
+    const profile = createProfile(name);
+    setActiveProfileId(profile.id);
+    setProfiles(loadProfiles());
+    setProfileId(profile.id);
+    setProfilesOpen(false);
+  }
+
+  function handleSwitchProfile(id: string): void {
+    if (id === profileId) return;
+    setActiveProfileId(id);
+    setProfileId(id);
+    setProfilesOpen(false);
+  }
+
+  function handleRenameProfile(id: string, name: string): boolean {
+    const renamed = renameProfile(id, name);
+    if (renamed) setProfiles(loadProfiles());
+    return renamed;
+  }
+
+  function handleDeleteProfile(id: string): void {
+    if (!deleteProfile(id)) return;
+    setProfiles(loadProfiles());
+    setProfileId(getActiveProfileId());
+  }
+
+  return (
+    <>
+      <Workspace
+        key={profileId}
+        profile={activeProfile}
+        onOpenProfiles={() => setProfilesOpen(true)}
+      />
+
+      <ProfilesModal
+        open={profilesOpen}
+        profiles={profiles}
+        activeId={profileId}
+        onClose={() => setProfilesOpen(false)}
+        onCreate={handleCreateProfile}
+        onSwitch={handleSwitchProfile}
+        onRename={handleRenameProfile}
+        onDelete={handleDeleteProfile}
+      />
+    </>
+  );
+}
+
+interface WorkspaceProps {
+  profile: Profile;
+  onOpenProfiles(): void;
+}
+
+function Workspace({ profile, onOpenProfiles }: WorkspaceProps) {
   const deepLink = useMemo(() => deepLinkFromHash(), []);
   const { devices, add, remove, rename, setLocalHost, touch } = useDevices(
     deepLink ? { token: deepLink.token } : undefined,
   );
   const [mode, setMode] = useState<ConnectionMode>(() =>
-    localStorage.getItem(MODE_KEY) === "local" ? "local" : "cloud",
+    localStorage.getItem(scopedKey(MODE_KEY)) === "local" ? "local" : "cloud",
   );
   const [activeToken, setActiveToken] = useState<string | null>(
     deepLink?.token ?? null,
@@ -57,7 +137,7 @@ export default function App() {
   const pendingOpen = useRef<string | null>(null);
 
   useEffect(() => {
-    localStorage.setItem(MODE_KEY, mode);
+    localStorage.setItem(scopedKey(MODE_KEY), mode);
   }, [mode]);
 
   const activeDevice = useMemo(
@@ -201,7 +281,9 @@ export default function App() {
         <>
           <AppHeader
             mode={mode}
+            profile={profile}
             onModeChange={setMode}
+            onOpenProfiles={onOpenProfiles}
             onOpenSettings={() => setSettingsOpen(true)}
           />
           <DeviceList

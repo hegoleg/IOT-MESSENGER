@@ -1,7 +1,13 @@
 import type { AddDeviceInput, StoredDevice } from "./types";
+import { scopedKey } from "./profiles";
 
 /** localStorage key that holds the device list (schema v1). */
 export const DEVICES_STORAGE_KEY = "iotbot.devices.v1";
+
+/** Key of the device list for the active profile (see lib/profiles). */
+export function devicesStorageKey(): string {
+  return scopedKey(DEVICES_STORAGE_KEY);
+}
 
 /** The UI is intentionally limited to a small, scrollable list. */
 export const MAX_DEVICES = 50;
@@ -99,7 +105,7 @@ export function sanitizeDevices(raw: unknown): StoredDevice[] {
 /** Reads the list from localStorage; never throws (private mode, bad JSON). */
 export function loadDevices(): StoredDevice[] {
   try {
-    const stored = window.localStorage.getItem(DEVICES_STORAGE_KEY);
+    const stored = window.localStorage.getItem(devicesStorageKey());
     if (!stored) return [];
     return sanitizeDevices(JSON.parse(stored) as unknown);
   } catch {
@@ -111,11 +117,22 @@ export function loadDevices(): StoredDevice[] {
 export function saveDevices(devices: StoredDevice[]): void {
   try {
     window.localStorage.setItem(
-      DEVICES_STORAGE_KEY,
+      devicesStorageKey(),
       JSON.stringify(devices.slice(0, MAX_DEVICES)),
     );
   } catch {
     // Ignore: keep working from in-memory state.
+  }
+}
+
+/** How many devices a given profile has (for the profiles screen). */
+export function countDevicesFor(profileId: string): number {
+  try {
+    const stored = window.localStorage.getItem(scopedKey(DEVICES_STORAGE_KEY, profileId));
+    if (!stored) return 0;
+    return sanitizeDevices(JSON.parse(stored) as unknown).length;
+  } catch {
+    return 0;
   }
 }
 
