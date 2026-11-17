@@ -99,7 +99,9 @@ initFlasher();
 // relative to the current deployment so subfolder hosting keeps working.
 document.querySelectorAll("[data-app-link]").forEach((link) => {
   try {
-    link.setAttribute("href", new URL("app/", window.location.href).toString());
+    const configured = (link.getAttribute("data-app-url") || "").trim();
+    const target = configured || new URL("app/", window.location.href).toString();
+    link.setAttribute("href", target);
   } catch {
     // Keep the static href.
   }
