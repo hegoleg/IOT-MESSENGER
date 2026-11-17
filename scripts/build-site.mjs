@@ -22,6 +22,7 @@ function run(args, env = {}) {
   });
 }
 
+run(["run", "build", "--workspace", "@iot/shared"]);
 run(["run", "build:landing"]);
 run(["run", "build", "--workspace", "@iot/web-app"], { APP_BASE: "/app/" });
 
