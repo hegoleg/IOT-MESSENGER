@@ -16,3 +16,6 @@ struct IB_msg {
   /** true when the user pressed an inline button (packet type "cb"). */
   bool isCallback = false;
 };
+
+/** Handler signature for bot.attach(): receives incoming messages and callbacks. */
+typedef void (*IB_callback)(IB_msg &msg);

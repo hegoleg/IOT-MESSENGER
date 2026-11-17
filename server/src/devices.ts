@@ -46,3 +46,27 @@ export function touchDevice(db: DB, token: string): number {
   db.prepare("UPDATE devices SET last_seen = ? WHERE token = ?").run(now, token);
   return now;
 }
+
+export interface DeviceRow {
+  token: string;
+  created_at: number;
+  last_seen: number;
+}
+
+/** All known devices ordered by creation time (admin list, PROTOCOL.md §4.5). */
+export function listDevices(db: DB): DeviceRow[] {
+  return db
+    .prepare("SELECT token, created_at, last_seen FROM devices ORDER BY created_at ASC")
+    .all() as DeviceRow[];
+}
+
+/**
+ * Deletes a device and its message history.
+ * Returns false when the token is unknown (admin DELETE, PROTOCOL.md §4.6).
+ */
+export function deleteDevice(db: DB, token: string): boolean {
+  if (!deviceExists(db, token)) return false;
+  db.prepare("DELETE FROM messages WHERE token = ?").run(token);
+  db.prepare("DELETE FROM devices WHERE token = ?").run(token);
+  return true;
+}

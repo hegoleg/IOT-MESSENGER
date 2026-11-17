@@ -7,9 +7,6 @@
 #include "IB_msg.h"
 #include "IoTBotConfig.h"
 
-/** Handler signature for bot.attach(): receives incoming messages and callbacks. */
-typedef void (*IB_callback)(IB_msg &msg);
-
 /**
  * IoTBot — FastBot-compatible client for the IoT-Messenger relay
  * (PROTOCOL.md, wire protocol v1).
@@ -92,7 +89,6 @@ class IoTBot {
 
   String nextMessageId();
   bool publish(const String &id, const String &text, bool hasMenu, const String &menu, bool edit);
-  void buildKeyboard(const String &menu, JsonDocument &doc);
   bool sendPacket(JsonDocument &doc);
   void log(const char *message);
 };

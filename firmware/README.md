@@ -11,6 +11,7 @@ C++ библиотека для ESP8266 / ESP32: лёгкий аналог Teleg
 - Heartbeat: `ping` каждые 25 с, таймаут `pong` 5 с, переподключение через 3 с.
 - Компактный синтаксис меню: `"Кнопка 1 \t Кнопка 2 \n Кнопка 3"` и пары `"Текст:data"`.
 - Экономия памяти: ArduinoJson v7, статический TX-буфер 1024 байта, переиспользуемые JSON-документы.
+- `IoTBotLAN` — тот же API, но без облака: ESP сама поднимает WebSocket-сервер на порту 81 и работает по LAN (`ws://IP:81`).
 
 ## Установка (PlatformIO)
 
@@ -58,6 +59,56 @@ void setup() {
 void loop() {
   bot.tick();   // неблокирующий цикл: WiFi, WebSocket, heartbeat
 }
+```
+
+## LAN-режим (IoTBotLAN)
+
+Если интернет или релей недоступны, плата сама становится сервером:
+поднимает WebSocket на порту 81, проверяет `token` из query и общается теми
+же JSON-пакетами. PWA подключается к `ws://<IP>:81/ws?token=<LAN_TOKEN>`.
+
+```cpp
+#include <IoTBotLAN.h>
+
+IoTBotLAN bot(LAN_TOKEN);   // LAN_TOKEN — любая длинная случайная строка
+
+void onMessage(IB_msg &msg) {
+  if (msg.text == "/status") bot.sendMessage("OK");
+}
+
+void setup() {
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  bot.attach(onMessage);
+  bot.enableMdns();         // необязательно: iotbot-xxxx.local
+}
+
+void loop() {
+  bot.tick();               // неблокирующий
+}
+```
+
+| Метод | Назначение |
+| --- | --- |
+| `void attach(handler)` | обработчик `void(IB_msg&)` |
+| `void begin()` | запустить сервер сразу (иначе `tick()` сделает это после Wi-Fi) |
+| `void tick()` | неблокирующий цикл: клиенты, mDNS, сообщения |
+| `bool enableMdns(hostname = "")` | анонс `_iotbot._tcp`, по умолчанию `iotbot-<chip>.local` |
+| `bool sendMessage / sendInline / editMessage` | те же методы, что у `IoTBot` |
+| `bool isConnected()` | есть хотя бы один авторизованный клиент |
+| `uint8_t clients()` | число клиентов |
+| `String ip()`, `uint16_t port()` | адрес и порт сервера |
+
+Порт по умолчанию — 81 (как в `PROTOCOL.md` §1.2). Входящие `msg`/`cb`
+ограничены 30 в минуту на клиента (`IOTBOT_LAN_RATE_LIMIT_PER_MIN`).
+Плата отправляет `status` при подключении и отвечает `pong` на `ping`.
+
+Сборка и запуск примера:
+
+```bash
+cd examples/lan
+cp include/secrets.h.example include/secrets.h   # Wi-Fi + LAN_TOKEN
+pio run -e nodemcuv2 -e esp32dev
+pio device monitor -b 115200                     # печатает ws://IP:81/ws?token=...
 ```
 
 ## Миграция с FastBot
@@ -144,9 +195,12 @@ npm run firmware:export
 
 Полный рабочий скетч: [examples/greenhouse](examples/greenhouse) — управление реле, опрос датчика, инлайн-кнопки и «живые» обновления через `editMessage`.
 
+LAN-вариант без релея: [examples/lan](examples/lan) — тот же сценарий на
+`IoTBotLAN`, плата сама поднимает сервер на порту 81 и mDNS.
+
 Сборка:
 
 ```bash
-cd examples/greenhouse
+cd examples/greenhouse   # или examples/lan
 pio run -e nodemcuv2 -e esp32dev
 ```

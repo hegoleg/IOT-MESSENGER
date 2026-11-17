@@ -15,6 +15,9 @@
 ### 1.2 Локальный режим без интернета (LAN / mDNS)
 * ESP поднимает локальный WebSocket-сервер на порту 81 и анонсирует себя по mDNS как _iotbot._tcp.local.
 * Клиент подключается напрямую по адресу ws://<DEVICE_IP>:81/ws?token=<DEVICE_TOKEN> и использует те же самые JSON-пакеты, что и через облачный релей.
+* ESP проверяет `token` из query: при неверном токене отправляет `err` 401 и закрывает соединение.
+* После подключения ESP отправляет `status` с `dev_online: true`; heartbeat (`ping`/`pong`) и коды ошибок — как в облачном режиме (§2.4).
+* Ограничение частоты входящих `msg`/`cb` — 30 в минуту на клиента (макрос прошивки `IOTBOT_LAN_RATE_LIMIT_PER_MIN`).
 
 ### 1.3 HTTP Fallback (для редкой отправки с батарейных плат)
 * POST /api/v1/msg с заголовком Authorization: Bearer <DEVICE_TOKEN> и телом в виде стандартного JSON-пакета msg.
@@ -144,3 +147,46 @@
 { "ok": true, "v": 1, "uptime": 3600 }
 ```
 `uptime` — число секунд с момента запуска сервера. Используется PWA-клиентом для проверки адреса релея в мастере настройки.
+
+### 4.5. Список устройств (админ)
+`GET /api/v1/devices`
+
+Требует `Authorization: Bearer <ADMIN_KEY>`. Если `ADMIN_KEY` не задан на сервере, возвращает `401`.
+
+Ответ `200`:
+```json
+{
+  "devices": [
+    { "token": "DEVICE_TOKEN", "created_at": 1794905120, "last_seen": 1794905125, "online": true }
+  ]
+}
+```
+`online` — подключена ли плата (`role=dev`) в данный момент.
+
+### 4.6. Удаление устройства (админ)
+`DELETE /api/v1/devices/<token>`
+
+Требует `ADMIN_KEY`. Удаляет устройство и его историю, разрывает активные
+WebSocket-соединения этого токена.
+
+Ответ `200`: `{ "ok": true }` · `404`: `{ "ok": false, "error": "device not found" }`
+
+### 4.7. Метрики (админ)
+`GET /api/v1/metrics`
+
+Требует `ADMIN_KEY`.
+
+Ответ `200`:
+```json
+{
+  "uptime": 3600,
+  "connections_dev": 1,
+  "connections_usr": 2,
+  "messages_routed": 150,
+  "messages_stored": 120,
+  "errors_400": 0,
+  "errors_401": 1,
+  "errors_413": 0,
+  "errors_429": 0
+}
+```

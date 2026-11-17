@@ -75,4 +75,34 @@ export class Relay {
     }
     return delivered;
   }
+
+  /** Live connection counts for GET /api/v1/metrics (PROTOCOL.md §4.7). */
+  counts(): { dev: number; usr: number } {
+    let dev = 0;
+    let usr = 0;
+    for (const session of this.sessions.values()) {
+      if (session.dev && session.dev.readyState === WebSocket.OPEN) dev += 1;
+      for (const socket of session.usrs) {
+        if (socket.readyState === WebSocket.OPEN) usr += 1;
+      }
+    }
+    return { dev, usr };
+  }
+
+  /**
+   * Closes every socket of the token and forgets the session
+   * (used by admin DELETE /api/v1/devices/:token).
+   */
+  dropToken(token: string): void {
+    const session = this.sessions.get(token);
+    if (!session) return;
+
+    this.sessions.delete(token);
+    if (session.dev) {
+      session.dev.close(4000, "device deleted by admin");
+    }
+    for (const socket of session.usrs) {
+      socket.close(4000, "device deleted by admin");
+    }
+  }
 }

@@ -33,3 +33,8 @@
 #ifndef IOTBOT_RECONNECT_DELAY_MS
 #define IOTBOT_RECONNECT_DELAY_MS 3000UL
 #endif
+
+/** LAN mode: inbound msg/cb packets per client per minute (IoTBotLAN). */
+#ifndef IOTBOT_LAN_RATE_LIMIT_PER_MIN
+#define IOTBOT_LAN_RATE_LIMIT_PER_MIN 30
+#endif

@@ -18,3 +18,6 @@ server/data/
 # Firmware secrets (examples)
 firmware/examples/*/include/secrets.h
 firmware/examples/*/src/secrets.h
+
+# Obsidian local app state (the vault notes themselves are tracked)
+obsidian/.obsidian/

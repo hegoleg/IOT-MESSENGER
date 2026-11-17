@@ -10,6 +10,7 @@ import { deviceExists, nowSec, touchDevice } from "../devices.js";
 import { saveMessage } from "../history.js";
 import { notifyOfflineUsr } from "../push.js";
 import type { Relay } from "../relay.js";
+import { countError, countMessageRouted } from "../stats.js";
 
 interface MsgRouteDeps {
   db: DB;
@@ -22,11 +23,13 @@ export function registerMsgRoutes(app: FastifyInstance, deps: MsgRouteDeps): voi
   app.post("/api/v1/msg", async (request, reply) => {
     const authorization = request.headers.authorization;
     if (!authorization?.startsWith("Bearer ")) {
+      countError(401);
       return reply.code(401).send(buildErrPacket(401, "Authorization header required"));
     }
 
     const token = authorization.slice("Bearer ".length).trim();
     if (!token || !deviceExists(deps.db, token)) {
+      countError(401);
       return reply.code(401).send(buildErrPacket(401, "Invalid token"));
     }
 
@@ -37,12 +40,15 @@ export function registerMsgRoutes(app: FastifyInstance, deps: MsgRouteDeps): voi
 
     const parsed = validatePacket(request.body, bytes);
     if (!parsed.ok) {
+      countError(parsed.code);
       return reply.code(parsed.code).send(buildErrPacket(parsed.code, parsed.reason));
     }
     if (parsed.packet.type !== "msg") {
+      countError(400);
       return reply.code(400).send(buildErrPacket(400, "only msg packets are accepted here"));
     }
     if (parsed.packet.from !== "dev") {
+      countError(400);
       return reply.code(400).send(buildErrPacket(400, 'from must be "dev"'));
     }
 
@@ -53,6 +59,7 @@ export function registerMsgRoutes(app: FastifyInstance, deps: MsgRouteDeps): voi
 
     saveMessage(deps.db, token, packet);
     touchDevice(deps.db, token);
+    countMessageRouted();
 
     const delivered = deps.relay.broadcastUsr(token, JSON.stringify(packet));
     if (delivered === 0) notifyOfflineUsr(deps.log, token, packet.text);

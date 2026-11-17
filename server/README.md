@@ -7,6 +7,10 @@ Node.js 20+ / TypeScript / Fastify / ws / better-sqlite3.
 - Device tokens: `POST /api/v1/devices/create`
 - Reachability probe: `GET /api/v1/health`
 - HTTP fallback: `POST /api/v1/msg` with `Authorization: Bearer <token>`
+- Admin API (requires `ADMIN_KEY`):
+  - `GET /api/v1/devices` — devices with `online` and `last_seen`
+  - `DELETE /api/v1/devices/:token` — remove a device, its history and live sockets
+  - `GET /api/v1/metrics` — uptime, connections and message/error counters
 
 Contract: `../PROTOCOL.md` и `../shared/types.ts`.
 
@@ -39,5 +43,22 @@ npm run sim -- --help
 
 ```bash
 npm run smoke   # HTTP/WS smoke-тест релея
-npm test        # интеграционный тест: симулятор ESP <-> релей <-> клиент usr
+npm test        # интеграционные тесты: симулятор ESP, админ-API, метрики, история
+```
+
+Когда `ADMIN_KEY` задан в `.env`, создание устройств и весь админ-API требуют
+`Authorization: Bearer <ADMIN_KEY>`. Без `ADMIN_KEY` админ-API отвечает `401`,
+а `POST /api/v1/devices/create` работает без авторизации — так удобно для
+локальной разработки, но не для публичного сервера.
+
+```bash
+# список устройств
+curl -H "Authorization: Bearer $ADMIN_KEY" http://localhost:8080/api/v1/devices
+
+# метрики
+curl -H "Authorization: Bearer $ADMIN_KEY" http://localhost:8080/api/v1/metrics
+
+# удалить устройство вместе с историей
+curl -X DELETE -H "Authorization: Bearer $ADMIN_KEY" \
+  http://localhost:8080/api/v1/devices/<token>
 ```

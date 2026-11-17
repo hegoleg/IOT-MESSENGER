@@ -10,7 +10,7 @@
     "start": "node dist/index.js",
     "smoke": "tsx scripts/smoke.ts",
     "sim": "tsx scripts/esp-sim.ts",
-    "test": "node --import tsx --test test/esp-sim.test.ts"
+    "test": "node --import tsx --test test/esp-sim.test.ts test/admin.test.ts"
   },
   "dependencies": {
     "@fastify/cors": "^11.4.3",

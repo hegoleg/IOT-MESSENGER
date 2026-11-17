@@ -3,6 +3,7 @@ import { HISTORY_LIMIT, buildErrPacket, type HistoryResponse } from "@iot/shared
 import type { DB } from "../db.js";
 import { deviceExists } from "../devices.js";
 import { getHistory } from "../history.js";
+import { countError } from "../stats.js";
 
 interface HistoryQuery {
   token?: string;
@@ -14,9 +15,11 @@ export function registerHistoryRoutes(app: FastifyInstance, deps: { db: DB }): v
   app.get<{ Querystring: HistoryQuery }>("/api/v1/history", async (request, reply) => {
     const token = request.query.token;
     if (!token) {
+      countError(400);
       return reply.code(400).send(buildErrPacket(400, "token is required"));
     }
     if (!deviceExists(deps.db, token)) {
+      countError(401);
       return reply.code(401).send(buildErrPacket(401, "Invalid token"));
     }
 

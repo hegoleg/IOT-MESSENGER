@@ -6,6 +6,7 @@ import {
   type Role,
 } from "@iot/shared";
 import type { DB } from "./db.js";
+import { countMessageStored } from "./stats.js";
 
 interface MessageRow {
   id: string;
@@ -33,6 +34,7 @@ export function saveMessage(db: DB, token: string, packet: MsgPacket): void {
       text      = excluded.text,
       kb        = excluded.kb
   `).run({ token, id: packet.id, from: packet.from, ts, text: packet.text, kb });
+  countMessageStored();
 
   db.prepare(`
     DELETE FROM messages

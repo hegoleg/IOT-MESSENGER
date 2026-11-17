@@ -141,6 +141,38 @@ export interface HealthResponse {
   uptime: number;
 }
 
+/** One device row from the admin device list (PROTOCOL.md §4.5). */
+export interface DeviceRecord {
+  token: string;
+  created_at: number;
+  last_seen: number;
+  /** Whether a dev socket is currently connected. */
+  online: boolean;
+}
+
+/** `GET /api/v1/devices` response (admin). */
+export interface DeviceListResponse {
+  devices: DeviceRecord[];
+}
+
+/** `DELETE /api/v1/devices/<token>` success response (admin). */
+export interface DeviceDeleteResponse {
+  ok: true;
+}
+
+/** `GET /api/v1/metrics` response (admin). */
+export interface MetricsResponse {
+  uptime: number;
+  connections_dev: number;
+  connections_usr: number;
+  messages_routed: number;
+  messages_stored: number;
+  errors_400: number;
+  errors_401: number;
+  errors_413: number;
+  errors_429: number;
+}
+
 /** `POST /api/v1/msg` response. */
 export interface MsgPostResponse {
   ok: true;

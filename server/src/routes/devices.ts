@@ -3,6 +3,7 @@ import { buildErrPacket, type DeviceCreateResponse } from "@iot/shared";
 import type { Config } from "../config.js";
 import type { DB } from "../db.js";
 import { createDeviceToken } from "../devices.js";
+import { countError } from "../stats.js";
 
 interface DeviceRouteDeps {
   db: DB;
@@ -15,6 +16,7 @@ export function registerDeviceRoutes(app: FastifyInstance, deps: DeviceRouteDeps
     if (deps.config.adminKey) {
       const authorization = request.headers.authorization;
       if (authorization !== `Bearer ${deps.config.adminKey}`) {
+        countError(401);
         return reply.code(401).send(buildErrPacket(401, "Admin key required"));
       }
     }
