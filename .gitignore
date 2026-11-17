@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.pio/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+server/data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Firmware secrets (examples)
+firmware/examples/*/include/secrets.h
+firmware/examples/*/src/secrets.h

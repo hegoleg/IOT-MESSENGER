@@ -1,0 +1,29 @@
+{
+  "name": "IoTBot",
+  "version": "0.1.0",
+  "description": "Telegram-like messaging for ESP8266/ESP32 with a FastBot-compatible API (IoT-Messenger wire protocol v1).",
+  "keywords": [
+    "iot",
+    "esp8266",
+    "esp32",
+    "websocket",
+    "telegram",
+    "fastbot"
+  ],
+  "authors": [
+    {
+      "name": "IoT-Messenger",
+      "maintainer": true
+    }
+  ],
+  "license": "MIT",
+  "frameworks": "arduino",
+  "platforms": [
+    "espressif8266",
+    "espressif32"
+  ],
+  "dependencies": {
+    "bblanchon/ArduinoJson": "^7.0.0",
+    "links2004/WebSockets": "^2.4.0"
+  }
+}
