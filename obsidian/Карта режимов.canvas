@@ -1,0 +1,204 @@
+{
+  "nodes": [
+    {
+      "id": "title",
+      "type": "text",
+      "text": "# ESP — единственный сервер\nРелея нет, кроме CGNAT",
+      "x": 280,
+      "y": -500,
+      "width": 460,
+      "height": 120,
+      "color": "4"
+    },
+    {
+      "id": "lan-header",
+      "type": "text",
+      "text": "## ОДНА WI-FI\nESP — весь сервер",
+      "x": -160,
+      "y": -340,
+      "width": 460,
+      "height": 80,
+      "color": "5"
+    },
+    {
+      "id": "lan-pwa",
+      "type": "file",
+      "file": "05 PWA.md",
+      "x": -160,
+      "y": -220,
+      "width": 280,
+      "height": 180,
+      "color": "2"
+    },
+    {
+      "id": "lan-esp",
+      "type": "file",
+      "file": "04 Прошивка.md",
+      "x": 300,
+      "y": -220,
+      "width": 280,
+      "height": 180,
+      "color": "5"
+    },
+    {
+      "id": "lan-note",
+      "type": "text",
+      "text": "ESP держит:\n• WebSocket :81\n• token + rate limit\n• ping/pong и status\n• mDNS _iotbot._tcp",
+      "x": 680,
+      "y": -220,
+      "width": 300,
+      "height": 180,
+      "color": "6"
+    },
+    {
+      "id": "wan-header",
+      "type": "text",
+      "text": "## РАЗНЫЕ WI-FI\nESP за роутером — релея нет",
+      "x": -160,
+      "y": 60,
+      "width": 560,
+      "height": 80,
+      "color": "4"
+    },
+    {
+      "id": "wan-phone",
+      "type": "text",
+      "text": "**Телефон / PWA**\nдругая сеть",
+      "x": -160,
+      "y": 200,
+      "width": 200,
+      "height": 100,
+      "color": "2"
+    },
+    {
+      "id": "wan-internet",
+      "type": "text",
+      "text": "**Интернет**",
+      "x": 100,
+      "y": 200,
+      "width": 160,
+      "height": 100,
+      "color": "3"
+    },
+    {
+      "id": "wan-router",
+      "type": "text",
+      "text": "**Роутер**\nпроброс 81 · DDNS",
+      "x": 320,
+      "y": 200,
+      "width": 220,
+      "height": 100,
+      "color": "3"
+    },
+    {
+      "id": "wan-esp",
+      "type": "text",
+      "text": "**ESP8266 / ESP32**\nIoTBotLAN :81",
+      "x": 600,
+      "y": 200,
+      "width": 220,
+      "height": 100,
+      "color": "5"
+    },
+    {
+      "id": "cgnat-header",
+      "type": "text",
+      "text": "## ЕСЛИ CGNAT\nПрямое соединение невозможно",
+      "x": -160,
+      "y": 400,
+      "width": 560,
+      "height": 80,
+      "color": "1"
+    },
+    {
+      "id": "cgnat-note",
+      "type": "text",
+      "text": "Провайдер не даёт входящие.\nНужен релей или туннель —\nэто ограничение сети, не архитектуры.",
+      "x": -160,
+      "y": 540,
+      "width": 460,
+      "height": 120,
+      "color": "1"
+    },
+    {
+      "id": "modes",
+      "type": "file",
+      "file": "12 Режимы работы.md",
+      "x": -160,
+      "y": 760,
+      "width": 280,
+      "height": 180,
+      "color": "4"
+    },
+    {
+      "id": "protocol",
+      "type": "file",
+      "file": "02 Протокол.md",
+      "x": 180,
+      "y": 760,
+      "width": 280,
+      "height": 180,
+      "color": "6"
+    },
+    {
+      "id": "site",
+      "type": "file",
+      "file": "06 Сайт и деплой.md",
+      "x": 520,
+      "y": 760,
+      "width": 280,
+      "height": 180,
+      "color": "3"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-lan",
+      "fromNode": "lan-pwa",
+      "fromSide": "right",
+      "toNode": "lan-esp",
+      "toSide": "left",
+      "label": "ws://IP:81"
+    },
+    {
+      "id": "e-lan-note",
+      "fromNode": "lan-esp",
+      "fromSide": "right",
+      "toNode": "lan-note",
+      "toSide": "left",
+      "label": "сам сервер"
+    },
+    {
+      "id": "e-wan-1",
+      "fromNode": "wan-phone",
+      "fromSide": "right",
+      "toNode": "wan-internet",
+      "toSide": "left",
+      "label": ""
+    },
+    {
+      "id": "e-wan-2",
+      "fromNode": "wan-internet",
+      "fromSide": "right",
+      "toNode": "wan-router",
+      "toSide": "left",
+      "label": ""
+    },
+    {
+      "id": "e-wan-3",
+      "fromNode": "wan-router",
+      "fromSide": "right",
+      "toNode": "wan-esp",
+      "toSide": "left",
+      "label": "ws://PUBLIC:81"
+    },
+    {
+      "id": "e-cgnat",
+      "fromNode": "cgnat-note",
+      "fromSide": "top",
+      "toNode": "cgnat-header",
+      "toSide": "bottom",
+      "label": ""
+    }
+  ]
+}
